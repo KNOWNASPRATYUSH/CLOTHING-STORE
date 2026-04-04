@@ -15,7 +15,12 @@ export default function Hero() {
         <Canvas
           shadows
           dpr={[1, 2]}
-          gl={{ antialias: true, alpha: true }}
+          gl={{ 
+            antialias: true, 
+            alpha: true,
+            powerPreference: "high-performance",
+            failIfMajorPerformanceCaveat: true
+          }}
           className="w-full h-full"
         >
           <Suspense fallback={null}>

@@ -15,7 +15,12 @@ export default function Scene({ children }: SceneProps) {
         shadows
         dpr={[1, 2]}
         camera={{ position: [0, 0, 5], fov: 35 }}
-        gl={{ antialias: true, alpha: true }}
+        gl={{ 
+          antialias: true, 
+          alpha: true,
+          powerPreference: "high-performance",
+          failIfMajorPerformanceCaveat: true
+        }}
       >
         <Suspense fallback={null}>
           <Environment preset="studio" />

@@ -12,32 +12,34 @@ import { AnimatePresence } from 'framer-motion';
 import Loader3D from '@/components/layout/Loader3D';
 
 export default function RootLayoutClient({ children }: { children: ReactNode }) {
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
 
   const handleComplete = useCallback(() => {
-    setLoading(false);
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
-    // Safety timeout: ensure loading screen is dismissed eventually
+    setIsMounted(true);
     const safetyTimer = setTimeout(() => {
-      setLoading(false);
+      setIsLoading(false);
     }, 6000);
-    // No ref guard needed, let React Strict Mode double-invoke and clean up properly
     return () => clearTimeout(safetyTimer);
   }, []);
+
+  if (!isMounted) return null;
 
   return (
     <>
       <AnimatePresence mode="wait">
-        {loading && (
+        {isLoading && (
           <Loader3D key="loader" onComplete={handleComplete} />
         )}
       </AnimatePresence>
 
       <div 
         className={`relative min-h-screen flex flex-col bg-black text-off-white selection:bg-gold selection:text-black transition-opacity duration-1000 ${
-          loading ? 'opacity-0 pointer-events-none h-screen overflow-hidden' : 'opacity-100'
+          isLoading ? 'opacity-0 pointer-events-none h-screen overflow-hidden' : 'opacity-100'
         }`}
       >
         <SmoothScroll>
