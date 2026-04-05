@@ -19,12 +19,12 @@ export default function Scene({ eventSource }: SceneProps) {
         left: 0,
         width: '100vw',
         height: '100vh',
-        zIndex: 10, // Sit above base backgrounds but below UI text (z-20)
+        zIndex: 0, // In the background
       }}
     >
       <Canvas
         shadows
-        dpr={1}
+        dpr={[1, 1.5]}
         gl={{ 
           antialias: false,
           alpha: true,
@@ -35,7 +35,7 @@ export default function Scene({ eventSource }: SceneProps) {
         onCreated={({ gl }) => {
           gl.setClearColor(0x000000, 0);
         }}
-        eventSource={eventSource}
+        eventSource={eventSource.current || undefined}
       >
         <Suspense fallback={null}>
           <Environment preset="night" />
@@ -46,7 +46,6 @@ export default function Scene({ eventSource }: SceneProps) {
         <directionalLight position={[10, 10, 5]} intensity={1.5} />
         <pointLight position={[-10, -10, -10]} intensity={0.5} color="#C9A96E" />
         
-        <Particles />
         <View.Port />
         <Preload all />
       </Canvas>

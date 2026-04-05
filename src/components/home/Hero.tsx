@@ -6,17 +6,53 @@ import { motion } from 'framer-motion';
 import { View, Preload } from '@react-three/drei';
 import { Suspense } from 'react';
 import HeroScene from '@/components/3d/HeroScene';
+import { useScroll, useTransform } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
 
 export default function Hero() {
+  const containerRef = useRef<HTMLDivElement>(null!);
+  const [isVisible, setIsVisible] = useState(true);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start']
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.6]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Unmount 3D view after 120vh of scroll for absolute safety
+      if (window.scrollY > window.innerHeight * 1.2) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <section className="relative h-screen min-h-[700px] flex items-end pb-24 overflow-hidden bg-transparent text-off-white">
-      {/* 3D Viewport Area */}
-      <View className="absolute inset-0 z-0 scene-3d">
-        <Suspense fallback={null}>
-          <HeroScene />
-          <Preload all />
-        </Suspense>
-      </View>
+    <section 
+      ref={containerRef}
+      className="relative h-screen min-h-[700px] flex items-end pb-24 overflow-hidden bg-transparent text-off-white hero-section"
+    >
+      {/* 3D Viewport Area - Only render when visible to avoid blocking below content */}
+      {isVisible && (
+        <motion.div 
+          style={{ opacity, scale, y }}
+          className="absolute inset-0 z-0 scene-3d pointer-events-none"
+        >
+          <View className="w-full h-full">
+            <Suspense fallback={null}>
+              <HeroScene />
+              <Preload all />
+            </Suspense>
+          </View>
+        </motion.div>
+      )}
 
       {/* Overlays */}
       <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 pointer-events-none" />

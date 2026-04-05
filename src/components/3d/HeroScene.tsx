@@ -6,37 +6,11 @@ import { MeshDistortMaterial, Float, PerspectiveCamera, Environment, ContactShad
 import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Particles from './Particles';
 
 function NoirSculpture() {
   const meshRef = useRef<THREE.Mesh>(null!);
   const groupRef = useRef<THREE.Group>(null!);
-
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    
-    // Animate rotation and scale on scroll
-    gsap.to(groupRef.current.rotation, {
-      y: Math.PI * 2,
-      scrollTrigger: {
-        trigger: 'main',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1,
-      }
-    });
-
-    gsap.to(groupRef.current.scale, {
-      x: 0.5,
-      y: 0.5,
-      z: 0.5,
-      scrollTrigger: {
-        trigger: 'main',
-        start: 'top top',
-        end: 'center center',
-        scrub: 1,
-      }
-    });
-  }, []);
 
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
@@ -49,17 +23,17 @@ function NoirSculpture() {
     <group ref={groupRef}>
       <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
         <mesh ref={meshRef} castShadow receiveShadow>
-          <torusKnotGeometry args={[1.2, 0.4, 128, 32]} />
+          <torusKnotGeometry args={[1.0, 0.35, 128, 32]} />
           <MeshDistortMaterial
-            color="#1a1a1a"
+            color="#222222"
             speed={3}
             distort={0.4}
             radius={1}
-            metalness={0.9}
-            roughness={0.1}
-            envMapIntensity={3}
+            metalness={1}
+            roughness={0.15}
+            envMapIntensity={5}
             clearcoat={1}
-            clearcoatRoughness={0.1}
+            clearcoatRoughness={0.05}
           />
         </mesh>
       </Float>
@@ -69,25 +43,21 @@ function NoirSculpture() {
 
 function SceneContent() {
   const { mouse, viewport } = useThree();
-  const cameraGroup = useRef<THREE.Group>(null!);
-  const targetX = useRef(0);
-  const targetY = useRef(0);
+  const groupRef = useRef<THREE.Group>(null!);
 
-  useFrame(() => {
-    // Smoother mouse parallax
-    targetX.current = (mouse.x * viewport.width) / 15;
-    targetY.current = (mouse.y * viewport.height) / 15;
-
-    cameraGroup.current.position.x += (targetX.current - cameraGroup.current.position.x) * 0.05;
-    cameraGroup.current.position.y += (targetY.current - cameraGroup.current.position.y) * 0.05;
-    cameraGroup.current.lookAt(0, 0, 0);
+  useFrame((state) => {
+    // Smoother mouse parallax on the GROUP instead of camera
+    const time = state.clock.getElapsedTime();
+    groupRef.current.position.x += (mouse.x * viewport.width / 20 - groupRef.current.position.x) * 0.05;
+    groupRef.current.position.y += (mouse.y * viewport.height / 20 - groupRef.current.position.y) * 0.05;
+    groupRef.current.rotation.y = Math.sin(time / 2) / 8;
   });
 
   return (
-    <group ref={cameraGroup}>
-      <PerspectiveCamera makeDefault position={[0, 0, 6]} fov={35} />
-      <Environment preset="night" />
+    <group ref={groupRef}>
+      <Environment preset="studio" />
       <Suspense fallback={null}>
+        <Particles count={1000} />
         <NoirSculpture />
         <ContactShadows
           position={[0, -2.5, 0]}
@@ -106,22 +76,24 @@ export default function HeroScene() {
     <>
       <SceneContent />
       <ambientLight intensity={1.5} />
-      <spotLight 
-        position={[10, 15, 10]} 
-        angle={0.3} 
-        penumbra={1} 
-        intensity={10} 
-        castShadow 
-      />
+      <directionalLight position={[10, 10, 10]} intensity={4} color="#ffffff" />
       <pointLight 
-        position={[-10, 10, -5]} 
+        position={[0, 5, 10]} 
         color="#C9A96E" 
-        intensity={15} 
+        intensity={20} 
       />
       <pointLight 
-        position={[10, -10, 10]} 
-        color="#ffffff" 
+        position={[-10, -5, 5]} 
+        color="#C9A96E" 
         intensity={10} 
+      />
+      {/* Front-facing highlight light */}
+      <spotLight 
+        position={[0, 0, 15]} 
+        intensity={30} 
+        color="#ffffff"
+        angle={0.5}
+        penumbra={1}
       />
       {/* Strong Rim Light for visibility */}
       <spotLight 
