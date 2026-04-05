@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trash2, Minus, Plus, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
@@ -76,10 +77,12 @@ export default function CartPage() {
                 >
                   {/* Image */}
                   <Link href={`/product/${item.product.id}`} className="shrink-0 w-24 h-32 md:w-32 md:h-44 overflow-hidden bg-charcoal">
-                    <img
+                    <Image
                       src={item.product.images[0]}
                       alt={item.product.name}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      fill
+                      sizes="128px"
+                      className="object-cover hover:scale-105 transition-transform duration-500"
                     />
                   </Link>
 

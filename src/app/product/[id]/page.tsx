@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useRef, use } from 'react';
+import { useState, useEffect, useRef, use, Suspense } from 'react';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -13,7 +14,7 @@ import { formatPrice } from '@/lib/utils';
 import ProductCard from '@/components/shop/ProductCard';
 
 import ProductScene from '@/components/3d/ProductScene';
-import { Canvas } from '@react-three/fiber';
+import { View, Preload } from '@react-three/drei';
 
 export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -97,7 +98,9 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                     !is3DView && activeImage === i ? 'border-gold' : 'border-transparent opacity-50 hover:opacity-100'
                   }`}
                 >
-                  <img src={img} alt={`View ${i + 1}`} className="w-full h-full object-cover" />
+                  <div className="relative w-full h-full">
+                    <Image src={img} alt={`View ${i + 1}`} fill sizes="80px" className="object-cover" />
+                  </div>
                 </button>
               ))}
             </div>
@@ -113,24 +116,33 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                     exit={{ opacity: 0 }}
                     className="w-full h-full"
                   >
-                    <Canvas shadows dpr={[1, 2]}>
-                      <ProductScene color="#0a0a0a" distort={0.2} />
-                    </Canvas>
+                    <View className="w-full h-full">
+                      <Suspense fallback={null}>
+                        <ProductScene color="#0a0a0a" distort={0.2} />
+                        <Preload all />
+                      </Suspense>
+                    </View>
                     <div className="absolute bottom-4 left-4 text-[10px] tracking-widest uppercase text-gold/60 pointer-events-none">
                       Interactive 3D Preview / Rotate & Explore
                     </div>
                   </motion.div>
                 ) : (
-                  <motion.img
+                  <motion.div
                     key="static"
                     ref={mainImgRef}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    src={product.images[activeImage]}
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                  />
+                    className="w-full h-full relative"
+                  >
+                    <Image
+                      src={product.images[activeImage]}
+                      alt={product.name}
+                      fill
+                      priority
+                      className="object-cover"
+                    />
+                  </motion.div>
                 )}
               </AnimatePresence>
               

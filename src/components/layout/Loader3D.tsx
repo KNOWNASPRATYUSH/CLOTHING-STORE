@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Loader3D({ onComplete }: { onComplete: () => void }) {
   const [isExiting, setIsExiting] = useState(false);
@@ -14,14 +14,11 @@ export default function Loader3D({ onComplete }: { onComplete: () => void }) {
       setIsExiting(true);
       
       // Final reveal
-      const finishTimer = setTimeout(() => {
+      setTimeout(() => {
         console.log('>>> LOADER COMPLETE');
         onComplete();
-      }, 1000);
-      
-      // Store finishTimer cleanup if needed, but since we're in the same scope:
-      // cleanup would be complicated here. Instead, let's keep it simple.
-    }, 3000);
+      }, 800);
+    }, 2000);
 
     return () => {
       clearTimeout(timer);

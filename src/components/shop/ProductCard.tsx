@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Heart, ShoppingBag } from 'lucide-react';
@@ -66,12 +67,13 @@ export default function ProductCard({ product, index = 0 }: Props) {
         {/* Image Container */}
         <div className="relative overflow-hidden bg-charcoal aspect-[3/4]">
           {!imgError ? (
-            <img
+            <Image
               src={product.images[0]}
               alt={product.name}
-              loading="lazy"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="product-card-img object-cover"
               onError={() => setImgError(true)}
-              className="product-card-img w-full h-full object-cover"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-stone/30 font-display text-lg">

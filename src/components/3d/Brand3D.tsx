@@ -32,21 +32,19 @@ function BrandSculpture() {
 
 export default function Brand3D() {
   return (
-    <div className="w-full h-full relative group">
-      <Suspense fallback={null}>
-        <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={35} />
-        <BrandSculpture />
-        <ContactShadows
-          position={[0, -1.5, 0]}
-          opacity={0.3}
-          scale={8}
-          blur={2.5}
-          far={4}
-        />
-        <Environment preset="studio" />
-        <ambientLight intensity={0.2} />
-        <spotLight position={[5, 5, 5]} intensity={1} />
-      </Suspense>
-    </div>
+    <Suspense fallback={null}>
+      <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={35} />
+      <BrandSculpture />
+      <ContactShadows
+        position={[0, -1.5, 0]}
+        opacity={0.3}
+        scale={8}
+        blur={2.5}
+        far={4}
+      />
+      <Environment preset="studio" />
+      <ambientLight intensity={0.2} />
+      <spotLight position={[5, 5, 5]} intensity={1} />
+    </Suspense>
   );
 }

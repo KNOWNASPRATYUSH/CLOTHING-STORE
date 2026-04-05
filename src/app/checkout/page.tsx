@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { Check, Lock, X, CreditCard, Package, User } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { formatPrice } from '@/lib/utils';
@@ -14,7 +15,7 @@ const STEPS = [
 ];
 
 export default function CheckoutPage() {
-  const { items, subtotal, clearCart } = useCart();
+  const { items, subtotal } = useCart();
   const [step, setStep] = useState(1);
   const [showModal, setShowModal] = useState(false);
 
@@ -195,7 +196,7 @@ export default function CheckoutPage() {
                 {items.map((item) => (
                   <div key={`${item.product.id}-${item.size}`} className="flex gap-3">
                     <div className="relative w-14 h-18 shrink-0">
-                      <img src={item.product.images[0]} alt={item.product.name} className="w-14 h-18 object-cover" />
+                      <Image src={item.product.images[0]} alt={item.product.name} fill sizes="56px" className="object-cover" />
                       <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-stone text-black text-[9px] rounded-full flex items-center justify-center">
                         {item.quantity}
                       </span>

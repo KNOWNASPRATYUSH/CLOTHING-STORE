@@ -5,9 +5,8 @@ import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SlidersHorizontal, X, ChevronDown } from 'lucide-react';
 import ProductCard, { ProductCardSkeleton } from '@/components/shop/ProductCard';
-import { products, categories, Category } from '@/data/products';
-import { Product } from '@/data/products';
-import { Canvas } from '@react-three/fiber';
+import { products, categories, Category, Product } from '@/data/products';
+import { View, Preload } from '@react-three/drei';
 import Brand3D from '@/components/3d/Brand3D';
 
 const SIZES = ['XS', 'S', 'M', 'L', 'XL', 'One Size'];
@@ -85,11 +84,12 @@ function ShopContent() {
       <div className="max-w-7xl mx-auto px-6 py-20 border-b border-white/8 relative overflow-hidden group">
         {/* Subtle 3D Decor */}
         <div className="absolute right-0 top-0 w-1/3 h-full opacity-40 pointer-events-none transition-opacity duration-700 group-hover:opacity-100">
-           <Canvas dpr={[1, 2]}>
+           <View className="w-full h-full">
              <Suspense fallback={null}>
                <Brand3D />
+               <Preload all />
              </Suspense>
-           </Canvas>
+           </View>
         </div>
 
         <motion.div

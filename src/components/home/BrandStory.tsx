@@ -1,8 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Canvas } from '@react-three/fiber';
+import { Suspense } from 'react';
+import { View, Preload } from '@react-three/drei';
 import Brand3D from '@/components/3d/Brand3D';
 
 const marqueeText = 'OUTERWEAR · DRESSES · BASICS · ACCESSORIES · NEW ARRIVALS · BESTSELLERS · ';
@@ -42,11 +44,12 @@ export default function BrandStory() {
             transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
             className="relative h-[600px] bg-black/50 border border-white/5 rounded-sm overflow-hidden scene-3d"
           >
-            <div className="absolute inset-0 z-0">
-              <Canvas shadows dpr={[1, 2]}>
+            <View className="absolute inset-0 z-0">
+              <Suspense fallback={null}>
                 <Brand3D />
-              </Canvas>
-            </div>
+                <Preload all />
+              </Suspense>
+            </View>
             <div className="absolute bottom-6 left-6 text-[10px] tracking-widest uppercase text-gold/40 pointer-events-none">
               Resilience / Form / Void
             </div>
@@ -118,10 +121,12 @@ export default function BrandStory() {
                 transition={{ duration: 0.8, delay: i * 0.1 }}
               >
                 <Link href={cat.href} className="group relative block overflow-hidden aspect-[3/4]">
-                  <img
+                  <Image
                     src={cat.image}
                     alt={cat.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                   <div className="absolute bottom-10 left-10">

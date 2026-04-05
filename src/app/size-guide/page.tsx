@@ -1,4 +1,5 @@
 import InfoLayout from '@/components/layout/InfoLayout';
+import Image from 'next/image';
 
 const sizeGuideImage = 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2000&auto=format&fit=crop';
 
@@ -58,11 +59,13 @@ export default function SizeGuidePage() {
               </li>
             </ul>
           </div>
-          <div className="h-[500px] overflow-hidden bg-charcoal">
-            <img 
+          <div className="h-[500px] overflow-hidden bg-charcoal relative">
+            <Image 
               src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800&q=80" 
               alt="Tailoring" 
-              className="w-full h-full object-cover opacity-40 grayscale"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover opacity-40 grayscale"
             />
           </div>
         </section>

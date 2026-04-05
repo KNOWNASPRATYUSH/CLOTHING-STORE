@@ -1,19 +1,20 @@
 'use client';
 
-import { ReactNode, useState, useEffect, useCallback } from 'react';
+import { ReactNode, useState, useEffect, useCallback, useRef } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import SmoothScroll from '@/components/effects/SmoothScroll';
 import CustomCursor from '@/components/effects/CustomCursor';
-import LoadingScreen from '@/components/effects/LoadingScreen';
 import TransitionCurtain from '@/components/layout/TransitionCurtain';
 import { AnimatePresence } from 'framer-motion';
 
 import Loader3D from '@/components/layout/Loader3D';
+import Scene from '@/components/3d/Scene';
 
 export default function RootLayoutClient({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
+  const eventSource = useRef<HTMLDivElement>(null!);
 
   const handleComplete = useCallback(() => {
     setIsLoading(false);
@@ -23,7 +24,7 @@ export default function RootLayoutClient({ children }: { children: ReactNode }) 
     setIsMounted(true);
     const safetyTimer = setTimeout(() => {
       setIsLoading(false);
-    }, 6000);
+    }, 3500);
     return () => clearTimeout(safetyTimer);
   }, []);
 
@@ -38,10 +39,12 @@ export default function RootLayoutClient({ children }: { children: ReactNode }) 
       </AnimatePresence>
 
       <div 
+        ref={eventSource}
         className={`relative min-h-screen flex flex-col bg-black text-off-white selection:bg-gold selection:text-black transition-opacity duration-1000 ${
           isLoading ? 'opacity-0 pointer-events-none h-screen overflow-hidden' : 'opacity-100'
         }`}
       >
+        <Scene eventSource={eventSource} />
         <SmoothScroll>
           <TransitionCurtain />
           <CustomCursor />

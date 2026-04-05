@@ -1,4 +1,5 @@
 import InfoLayout from '@/components/layout/InfoLayout';
+import Image from 'next/image';
 
 const aboutImage = 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=2000&auto=format&fit=crop';
 
@@ -21,10 +22,12 @@ export default function AboutPage() {
         </section>
 
         <section className="relative h-[400px] overflow-hidden my-20">
-          <img 
+          <Image 
             src="https://images.unsplash.com/photo-1534030347209-467a5b0ad3e6?w=1200&q=80" 
             alt="Craftsmanship" 
-            className="w-full h-full object-cover grayscale brightness-50"
+            fill
+            sizes="100vw"
+            className="object-cover grayscale brightness-50"
           />
           <div className="absolute inset-0 flex items-center justify-center p-12 text-center">
             <p className="font-display text-4xl text-off-white italic">"Restraint is the ultimate form of expression."</p>

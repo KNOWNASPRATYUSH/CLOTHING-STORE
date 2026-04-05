@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
@@ -23,10 +24,13 @@ export default function InfoLayout({ title, subtitle, children, image }: Props) 
           className="absolute inset-0"
         >
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
-          <img
+          <Image
             src={image || 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=2000&q=80'}
             alt=""
-            className="w-full h-full object-cover grayscale opacity-60"
+            fill
+            sizes="100vw"
+            className="object-cover grayscale opacity-60"
+            priority
           />
         </motion.div>
 

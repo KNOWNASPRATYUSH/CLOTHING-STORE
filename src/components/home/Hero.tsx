@@ -3,31 +3,20 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Canvas } from '@react-three/fiber';
+import { View, Preload } from '@react-three/drei';
 import { Suspense } from 'react';
 import HeroScene from '@/components/3d/HeroScene';
 
 export default function Hero() {
   return (
     <section className="relative h-screen min-h-[700px] flex items-end pb-24 overflow-hidden bg-black text-off-white">
-      {/* 3D Scene Background */}
-      <div className="absolute inset-0 z-0">
-        <Canvas
-          shadows
-          dpr={[1, 2]}
-          gl={{ 
-            antialias: true, 
-            alpha: true,
-            powerPreference: "high-performance",
-            failIfMajorPerformanceCaveat: true
-          }}
-          className="w-full h-full"
-        >
-          <Suspense fallback={null}>
-            <HeroScene />
-          </Suspense>
-        </Canvas>
-      </div>
+      {/* 3D Viewport Area */}
+      <View className="absolute inset-0 z-0 scene-3d">
+        <Suspense fallback={null}>
+          <HeroScene />
+          <Preload all />
+        </Suspense>
+      </View>
 
       {/* Overlays */}
       <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 pointer-events-none" />
@@ -71,10 +60,10 @@ export default function Hero() {
           >
             <Link
               href="/shop"
-              className="group flex items-center gap-4 bg-off-white text-black px-10 py-5 text-sm tracking-[0.3em] uppercase font-body hover:bg-gold transition-all duration-500"
+              className="group flex items-center gap-4 border border-gold/50 text-gold px-12 py-5 text-sm tracking-[0.4em] uppercase font-body hover:bg-gold hover:text-black transition-all duration-700 backdrop-blur-sm"
             >
               Explore Collection
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
+              <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform duration-500" />
             </Link>
           </motion.div>
         </div>
