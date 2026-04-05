@@ -9,6 +9,10 @@ import { Product } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
 import { formatPrice } from '@/lib/utils';
+import { View } from '@react-three/drei';
+import { Suspense, lazy } from 'react';
+
+const ProductScene = lazy(() => import('@/components/3d/ProductScene'));
 
 type Props = {
   product: Product;
@@ -19,6 +23,7 @@ export default function ProductCard({ product, index = 0 }: Props) {
   const [imgError, setImgError] = useState(false);
   const [added, setAdded] = useState(false);
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
   const { addItem } = useCart();
   const { toggleWishlist, isWishlisted } = useWishlist();
 
@@ -35,6 +40,11 @@ export default function ProductCard({ product, index = 0 }: Props) {
 
   const handleMouseLeave = () => {
     setRotate({ x: 0, y: 0 });
+    setIsHovered(false);
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
   };
 
   const handleQuickAdd = (e: React.MouseEvent) => {
@@ -58,6 +68,7 @@ export default function ProductCard({ product, index = 0 }: Props) {
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.6, delay: index * 0.08, ease: [0.23, 1, 0.32, 1] }}
       onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       animate={{ rotateX: rotate.x, rotateY: rotate.y }}
       className="product-card group perspective-[1000px]"
@@ -72,12 +83,23 @@ export default function ProductCard({ product, index = 0 }: Props) {
               alt={product.name}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="product-card-img object-cover"
+              className={`product-card-img object-cover transition-opacity duration-500 ${isHovered ? 'opacity-20' : 'opacity-100'}`}
               onError={() => setImgError(true)}
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-stone/30 font-display text-lg">
               LUX NOIR
+            </div>
+          )}
+
+          {/* 3D View Overlay */}
+          {isHovered && (
+            <div className="absolute inset-0 z-10">
+              <View className="w-full h-full">
+                <Suspense fallback={null}>
+                  <ProductScene distort={0.2} />
+                </Suspense>
+              </View>
             </div>
           )}
 

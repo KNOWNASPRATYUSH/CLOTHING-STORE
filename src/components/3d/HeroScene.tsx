@@ -1,37 +1,69 @@
 'use client';
 
-import { Suspense, useRef } from 'react';
+import { Suspense, useRef, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { MeshDistortMaterial, Float, PerspectiveCamera, Environment, ContactShadows } from '@react-three/drei';
+import { MeshDistortMaterial, Float, PerspectiveCamera, Environment, ContactShadows, MeshTransmissionMaterial } from '@react-three/drei';
 import * as THREE from 'three';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-function LuxuryCloth() {
+function NoirSculpture() {
   const meshRef = useRef<THREE.Mesh>(null!);
+  const groupRef = useRef<THREE.Group>(null!);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Animate rotation and scale on scroll
+    gsap.to(groupRef.current.rotation, {
+      y: Math.PI * 2,
+      scrollTrigger: {
+        trigger: 'main',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 1,
+      }
+    });
+
+    gsap.to(groupRef.current.scale, {
+      x: 0.5,
+      y: 0.5,
+      z: 0.5,
+      scrollTrigger: {
+        trigger: 'main',
+        start: 'top top',
+        end: 'center center',
+        scrub: 1,
+      }
+    });
+  }, []);
 
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
-    meshRef.current.rotation.x = Math.cos(time / 4) / 8;
-    meshRef.current.rotation.y = Math.sin(time / 2) / 8;
-    meshRef.current.position.y = Math.sin(time / 1.5) / 15;
+    // Continuous subtle pulse/sway
+    meshRef.current.rotation.x = Math.cos(time / 4) / 4;
+    meshRef.current.position.y = Math.sin(time / 2) / 10;
   });
 
   return (
-    <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5}>
-      <mesh ref={meshRef} castShadow receiveShadow>
-        <sphereGeometry args={[1.2, 64, 64]} />
-        <MeshDistortMaterial
-          color="#0a0a0a"
-          speed={4}
-          distort={0.3}
-          radius={1}
-          metalness={0.9}
-          roughness={0.1}
-          envMapIntensity={2}
-          clearcoat={1}
-          clearcoatRoughness={0.1}
-        />
-      </mesh>
-    </Float>
+    <group ref={groupRef}>
+      <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
+        <mesh ref={meshRef} castShadow receiveShadow>
+          <torusKnotGeometry args={[1, 0.3, 128, 16]} />
+          <MeshDistortMaterial
+            color="#0a0a0a"
+            speed={3}
+            distort={0.4}
+            radius={1}
+            metalness={0.95}
+            roughness={0.05}
+            envMapIntensity={2.5}
+            clearcoat={1}
+            clearcoatRoughness={0.1}
+          />
+        </mesh>
+      </Float>
+    </group>
   );
 }
 
@@ -43,8 +75,8 @@ function SceneContent() {
 
   useFrame(() => {
     // Smoother mouse parallax
-    targetX.current = (mouse.x * viewport.width) / 10;
-    targetY.current = (mouse.y * viewport.height) / 10;
+    targetX.current = (mouse.x * viewport.width) / 15;
+    targetY.current = (mouse.y * viewport.height) / 15;
 
     cameraGroup.current.position.x += (targetX.current - cameraGroup.current.position.x) * 0.05;
     cameraGroup.current.position.y += (targetY.current - cameraGroup.current.position.y) * 0.05;
@@ -53,15 +85,15 @@ function SceneContent() {
 
   return (
     <group ref={cameraGroup}>
-      <PerspectiveCamera makeDefault position={[0, 0, 7]} fov={35} />
+      <PerspectiveCamera makeDefault position={[0, 0, 6]} fov={35} />
       <Environment preset="night" />
       <Suspense fallback={null}>
-        <LuxuryCloth />
+        <NoirSculpture />
         <ContactShadows
-          position={[0, -2.8, 0]}
-          opacity={0.6}
-          scale={15}
-          blur={3}
+          position={[0, -2.5, 0]}
+          opacity={0.4}
+          scale={12}
+          blur={2.8}
           far={5}
         />
       </Suspense>

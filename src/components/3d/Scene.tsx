@@ -3,6 +3,7 @@
 import { Canvas } from '@react-three/fiber';
 import { View, Preload, Environment } from '@react-three/drei';
 import { Suspense } from 'react';
+import Particles from './Particles';
 
 interface SceneProps {
   eventSource: React.RefObject<HTMLDivElement>;
@@ -25,10 +26,11 @@ export default function Scene({ eventSource }: SceneProps) {
         shadows
         dpr={1}
         gl={{ 
-          antialias: true, 
+          antialias: false,
           alpha: true,
-          powerPreference: "default",
+          powerPreference: "high-performance",
           failIfMajorPerformanceCaveat: false,
+          preserveDrawingBuffer: true,
         }}
         onCreated={({ gl }) => {
           gl.setClearColor(0x000000, 0);
@@ -38,6 +40,13 @@ export default function Scene({ eventSource }: SceneProps) {
         <Suspense fallback={null}>
           <Environment preset="night" />
         </Suspense>
+        
+        {/* Global Fallback Lighting - ensures models aren't black if Env fails */}
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[10, 10, 5]} intensity={1.5} />
+        <pointLight position={[-10, -10, -10]} intensity={0.5} color="#C9A96E" />
+        
+        <Particles />
         <View.Port />
         <Preload all />
       </Canvas>

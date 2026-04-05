@@ -5,25 +5,22 @@ import { useEffect, useState } from 'react';
 export default function Loader3D({ onComplete }: { onComplete: () => void }) {
   const [isExiting, setIsExiting] = useState(false);
   useEffect(() => {
-    // No ref guard needed, let React Strict Mode double-invoke and clean up properly
+    // We only want this effect to run ONCE when mounted.
+    // The previous dependency on [onComplete] might have caused re-triggers in some scenarios.
     console.log('>>> LOADER MOUNTED');
 
-    // Guaranteed dismissal timer
     const timer = setTimeout(() => {
       console.log('>>> LOADER DISMISSING');
       setIsExiting(true);
       
-      // Final reveal
       setTimeout(() => {
         console.log('>>> LOADER COMPLETE');
         onComplete();
-      }, 800);
-    }, 2000);
+      }, 1000); // Slightly longer exit for cinematic feel
+    }, 3000); // 3 seconds of branding
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [onComplete]);
+    return () => clearTimeout(timer);
+  }, []); // Stable mounting
 
   return (
     <div 

@@ -22,9 +22,10 @@ export default function RootLayoutClient({ children }: { children: ReactNode }) 
 
   useEffect(() => {
     setIsMounted(true);
+    // Increased safety timer slightly to ensure everything handles properly
     const safetyTimer = setTimeout(() => {
       setIsLoading(false);
-    }, 3500);
+    }, 4500);
     return () => clearTimeout(safetyTimer);
   }, []);
 
@@ -40,8 +41,8 @@ export default function RootLayoutClient({ children }: { children: ReactNode }) 
 
       <div 
         ref={eventSource}
-        className={`relative min-h-screen flex flex-col bg-black text-off-white selection:bg-gold selection:text-black transition-opacity duration-1000 ${
-          isLoading ? 'opacity-0 pointer-events-none h-screen overflow-hidden' : 'opacity-100'
+        className={`relative min-h-screen flex flex-col bg-black text-off-white selection:bg-gold selection:text-black transition-opacity duration-[2000ms] ${
+          isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100'
         }`}
       >
         <Scene eventSource={eventSource} />
