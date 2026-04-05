@@ -49,15 +49,15 @@ function NoirSculpture() {
     <group ref={groupRef}>
       <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
         <mesh ref={meshRef} castShadow receiveShadow>
-          <torusKnotGeometry args={[1, 0.3, 128, 16]} />
+          <torusKnotGeometry args={[1.2, 0.4, 128, 32]} />
           <MeshDistortMaterial
-            color="#0a0a0a"
+            color="#1a1a1a"
             speed={3}
             distort={0.4}
             radius={1}
-            metalness={0.95}
-            roughness={0.05}
-            envMapIntensity={2.5}
+            metalness={0.9}
+            roughness={0.1}
+            envMapIntensity={3}
             clearcoat={1}
             clearcoatRoughness={0.1}
           />
@@ -105,23 +105,30 @@ export default function HeroScene() {
   return (
     <>
       <SceneContent />
-      <ambientLight intensity={0.2} />
+      <ambientLight intensity={1.5} />
       <spotLight 
         position={[10, 15, 10]} 
         angle={0.3} 
         penumbra={1} 
-        intensity={4} 
+        intensity={10} 
         castShadow 
       />
       <pointLight 
-        position={[-5, -5, -5]} 
+        position={[-10, 10, -5]} 
         color="#C9A96E" 
-        intensity={2} 
+        intensity={15} 
       />
       <pointLight 
-        position={[5, 5, 10]} 
+        position={[10, -10, 10]} 
         color="#ffffff" 
-        intensity={1} 
+        intensity={10} 
+      />
+      {/* Strong Rim Light for visibility */}
+      <spotLight 
+        position={[0, 0, -10]} 
+        intensity={20} 
+        color="#ffffff"
+        angle={Math.PI / 2}
       />
     </>
   );

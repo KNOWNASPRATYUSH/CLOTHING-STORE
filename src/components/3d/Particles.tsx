@@ -38,10 +38,10 @@ export default function Particles({ count = 5000 }) {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.015}
+        size={0.025}
         color="#C9A96E"
         transparent
-        opacity={0.4}
+        opacity={0.6}
         sizeAttenuation
         blending={THREE.AdditiveBlending}
       />

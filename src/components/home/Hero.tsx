@@ -9,7 +9,7 @@ import HeroScene from '@/components/3d/HeroScene';
 
 export default function Hero() {
   return (
-    <section className="relative h-screen min-h-[700px] flex items-end pb-24 overflow-hidden bg-black text-off-white">
+    <section className="relative h-screen min-h-[700px] flex items-end pb-24 overflow-hidden bg-transparent text-off-white">
       {/* 3D Viewport Area */}
       <View className="absolute inset-0 z-0 scene-3d">
         <Suspense fallback={null}>

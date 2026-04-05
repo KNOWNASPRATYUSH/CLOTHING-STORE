@@ -19,7 +19,7 @@ export default function Scene({ eventSource }: SceneProps) {
         left: 0,
         width: '100vw',
         height: '100vh',
-        zIndex: 0,
+        zIndex: 10, // Sit above base backgrounds but below UI text (z-20)
       }}
     >
       <Canvas
