@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { MeshTransmissionMaterial, Float, Environment } from '@react-three/drei';
+import { Float, Environment } from '@react-three/drei';
 import * as THREE from 'three';
 
 export default function CrystalHero() {
@@ -30,22 +30,13 @@ export default function CrystalHero() {
       <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
         <mesh ref={meshRef} position={[0, 0, 0]}>
           <icosahedronGeometry args={[1.5, 0]} />
-          <MeshTransmissionMaterial
-            backside
-            samples={4}
+          <meshPhysicalMaterial
+            transmission={1}
+            ior={1.4}
             thickness={2}
-            chromaticAberration={0.05}
-            anisotropy={0.3}
-            distortion={0.2}
-            distortionScale={0.5}
-            temporalDistortion={0.1}
-            iridescence={1}
-            iridescenceIOR={1}
-            iridescenceThicknessRange={[0, 1400]}
-            color="#ffffff"
-            clearcoat={1}
-            clearcoatRoughness={0.1}
             roughness={0.1}
+            clearcoat={1}
+            color="#ffffff"
           />
         </mesh>
 

@@ -1,17 +1,14 @@
 'use client';
 
-import { useState, lazy, Suspense } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Heart, ShoppingBag } from 'lucide-react';
-import { View } from '@react-three/drei';
 import { Product } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
 import { formatPrice } from '@/lib/utils';
-
-const AmbientLightBeams = lazy(() => import('@/components/3d/AmbientLightBeams'));
 
 type Props = {
   product: Product;
@@ -67,15 +64,6 @@ export default function ProductCard({ product, index = 0 }: Props) {
               AURA
             </div>
           )}
-
-          {/* 3D Hover Overlay */}
-          <div className={`absolute inset-0 z-0 pointer-events-none mix-blend-multiply transition-opacity duration-1000 ${isHovered ? 'opacity-60' : 'opacity-0'}`}>
-            <View className="w-full h-full">
-              <Suspense fallback={null}>
-                <AmbientLightBeams />
-              </Suspense>
-            </View>
-          </div>
 
           {/* Badge */}
           {product.badge && (

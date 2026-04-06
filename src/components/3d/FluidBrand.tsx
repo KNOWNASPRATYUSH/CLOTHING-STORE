@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { MeshTransmissionMaterial, Float, Environment } from '@react-three/drei';
+import { Float, Environment } from '@react-three/drei';
 import * as THREE from 'three';
 
 export default function FluidBrand() {
@@ -27,22 +27,13 @@ export default function FluidBrand() {
       <Float speed={1.5} rotationIntensity={0.2} floatIntensity={1.5}>
         <mesh ref={meshRef} position={[0, 0, 0]}>
           <boxGeometry args={[3, 3, 3]} />
-          <MeshTransmissionMaterial
-            backside
-            samples={4}
+          <meshPhysicalMaterial
+            transmission={1}
+            ior={1.4}
             thickness={3}
-            chromaticAberration={0.1}
-            anisotropy={0.2}
-            distortion={0.5}
-            distortionScale={0.8}
-            temporalDistortion={0.2}
-            iridescence={0.5}
-            iridescenceIOR={1}
-            iridescenceThicknessRange={[0, 1000]}
-            color="#ffffff"
-            clearcoat={1}
-            clearcoatRoughness={0.1}
             roughness={0.1}
+            clearcoat={1}
+            color="#ffffff"
           />
         </mesh>
       </Float>

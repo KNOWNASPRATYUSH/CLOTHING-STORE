@@ -83,16 +83,16 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
         </div>
 
         {/* Product Layout */}
-        <div className="grid md:grid-cols-2 gap-16 lg:gap-24 items-start pb-24">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start pb-24">
           {/* Left: Images */}
-          <div className="flex flex-col-reverse md:flex-row gap-6 sticky top-32">
+          <div className="flex flex-col-reverse lg:flex-row gap-6 sticky top-32">
             {/* Thumbnails */}
-            <div className="flex md:flex-col gap-4 w-full md:w-24 shrink-0 overflow-x-auto no-scrollbar md:overflow-visible">
+            <div className="flex lg:flex-col gap-4 w-full lg:w-24 shrink-0 overflow-x-auto no-scrollbar lg:overflow-visible">
               {product.images.map((img, i) => (
                 <button
                   key={i}
                   onClick={() => handleImageChange(i)}
-                  className={`relative aspect-[3/4] md:aspect-square min-w-[5rem] md:min-w-0 overflow-hidden border transition-all duration-300 ${
+                  className={`relative aspect-[3/4] lg:aspect-square min-w-[5rem] lg:min-w-0 overflow-hidden border transition-all duration-300 ${
                     activeImage === i ? 'border-charcoal opacity-100' : 'border-subtle opacity-50 hover:opacity-100 hover:border-stone'
                   }`}
                 >
@@ -129,7 +129,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
-            className="flex flex-col pt-0 md:pt-4"
+            className="flex flex-col pt-0 lg:pt-4"
           >
             <p className="text-stone text-[10px] tracking-widest uppercase mb-4">
               {product.category}
