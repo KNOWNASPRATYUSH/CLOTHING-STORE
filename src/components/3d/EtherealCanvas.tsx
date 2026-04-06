@@ -10,8 +10,14 @@ export default function EtherealCanvas() {
         eventSource={typeof document !== 'undefined' ? document.body : undefined}
         className="pointer-events-none"
         shadows
+        dpr={[1, 2]} // Limit to 2x even on 3x screens for mobile performance
         camera={{ position: [0, 0, 5], fov: 45 }}
-        gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
+        gl={{ 
+          alpha: true, 
+          antialias: true, 
+          powerPreference: 'high-performance',
+          preserveDrawingBuffer: false 
+        }}
       >
         <Preload all />
         <View.Port />

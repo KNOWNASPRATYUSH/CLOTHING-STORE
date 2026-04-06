@@ -50,14 +50,22 @@ export default function ProductCard({ product, index = 0 }: Props) {
         {/* Image Container */}
         <div className="relative overflow-hidden bg-off-white aspect-[3/4] mb-6">
           {!imgError ? (
-            <Image
-              src={product.images[0]}
-              alt={product.name}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className={`object-cover noir-reveal transition-transform duration-[1.5s] ease-silk ${isHovered ? 'scale-105' : 'scale-100'}`}
-              onError={() => setImgError(true)}
-            />
+            <motion.div
+              className="w-full h-full"
+              initial={{ filter: 'grayscale(1) contrast(1.1)' }}
+              whileInView={{ filter: 'grayscale(0) contrast(1)' }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ duration: 1.5, ease: [0.23, 1, 0.32, 1] }}
+            >
+              <Image
+                src={product.images[0]}
+                alt={product.name}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className={`object-cover transition-transform duration-[1.5s] ease-silk ${isHovered ? 'scale-105' : 'scale-100'}`}
+                onError={() => setImgError(true)}
+              />
+            </motion.div>
           ) : (
             <div className="w-full h-full flex items-center justify-center text-stone/20 font-display text-4xl tracking-luxury">
               AURA

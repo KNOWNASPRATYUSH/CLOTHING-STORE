@@ -141,33 +141,33 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="fixed inset-0 z-[9999] flex flex-col bg-paper-white/95 backdrop-blur-2xl"
+            transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
+            className="fixed inset-0 z-[9999] flex flex-col bg-paper-white/80 backdrop-blur-3xl"
           >
-            <div className="flex items-center justify-between p-8">
-              <span className="font-display text-2xl tracking-[0.4em] uppercase text-charcoal">
+            <div className="flex items-center justify-between p-10">
+              <span className="font-display text-2xl tracking-[0.6em] uppercase text-mask italic">
                 AURA
               </span>
               <button
                 onClick={() => setMenuOpen(false)}
-                className="text-stone hover:text-charcoal transition-colors p-2"
+                className="text-stone hover:text-charcoal transition-all duration-700 p-2 hover:rotate-90"
               >
-                <X size={24} strokeWidth={1} />
+                <X size={28} strokeWidth={1} />
               </button>
             </div>
 
-            <nav className="flex-1 flex flex-col justify-center items-center py-10 px-8 gap-8">
+            <nav className="flex-1 flex flex-col justify-center items-center py-10 px-8 gap-10">
               {mobileLinks.map((link, i) => (
                 <motion.div
                   key={link.href}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + i * 0.05, ease: "easeOut" }}
+                  transition={{ delay: 0.1 + i * 0.08, duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
                 >
                   <Link
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
-                    className="block font-display text-4xl uppercase text-charcoal hover:text-stone transition-all duration-700"
+                    className="block font-display text-5xl uppercase text-charcoal hover:text-stone transition-all duration-1000 tracking-[-0.05em] italic"
                   >
                     {link.label}
                   </Link>
@@ -175,11 +175,11 @@ export default function Navbar() {
               ))}
             </nav>
 
-            <div className="p-12 border-t border-subtle flex justify-between items-center text-[8px] tracking-[0.5em] uppercase text-stone">
-              <span>Selected Works</span>
-              <div className="flex gap-6">
-                <a href="#">IG</a>
-                <a href="#">TW</a>
+            <div className="p-16 border-t border-subtle flex justify-between items-center text-[9px] tracking-[0.6em] uppercase text-stone/40">
+              <span className="italic">Private Archival Access</span>
+              <div className="flex gap-10">
+                <a href="#" className="hover:text-charcoal transition-colors">IG</a>
+                <a href="#" className="hover:text-charcoal transition-colors">TW</a>
               </div>
             </div>
           </motion.div>

@@ -18,7 +18,7 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[120vh] flex flex-col justify-end bg-off-white text-charcoal pb-24 px-8 md:px-[5%] overflow-hidden"
+      className="relative min-h-[100vh] md:min-h-[120vh] flex flex-col justify-end bg-off-white text-charcoal pb-16 md:pb-24 px-6 md:px-[5%] overflow-hidden"
     >
       {/* 3D Refractive Layer Overlay */}
       <div className="absolute inset-0 z-20 pointer-events-none">
@@ -31,7 +31,7 @@ export default function Hero() {
 
       {/* Background large editorial image */}
       <motion.div
-        className="absolute top-24 left-1/2 -translate-x-1/2 w-[90%] md:w-[70%] h-[75vh] z-0 overflow-hidden"
+        className="absolute top-20 md:top-24 left-1/2 -translate-x-1/2 w-[95%] md:w-[70%] h-[60vh] md:h-[75vh] z-0 overflow-hidden"
         style={{ y: imageY }}
       >
         <Image
@@ -39,8 +39,8 @@ export default function Hero() {
           alt="AURA Minimalist Collection"
           fill
           priority
-          sizes="(max-width: 768px) 90vw, 70vw"
-          className="object-cover object-center"
+          sizes="(max-width: 768px) 95vw, 70vw"
+          className="object-cover object-center scale-105"
         />
       </motion.div>
 
@@ -53,17 +53,17 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="font-body text-xs tracking-ultra uppercase text-stone mb-6"
+          className="font-body text-[8px] md:text-xs tracking-ultra uppercase text-stone/60 mb-4 md:mb-6"
         >
           Collection 002 / The AURA Cut
         </motion.p>
 
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.4, ease: [0.23, 1, 0.32, 1] }}
+          transition={{ duration: 1.5, delay: 0.4, ease: [0.23, 1, 0.32, 1] }}
           className="font-display font-normal uppercase leading-[0.85] text-mask"
-          style={{ fontSize: 'clamp(5rem, 15vw, 12rem)' }}
+          style={{ fontSize: 'clamp(4.5rem, 18vw, 12rem)' }}
         >
           Silent <br /> <span className="italic">Form</span>
         </motion.h1>
@@ -72,12 +72,12 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="mt-16 flex flex-col md:flex-row gap-6 md:gap-12"
+          className="mt-12 md:mt-16 flex flex-col md:flex-row gap-4 md:gap-12 w-full md:w-auto"
         >
-          <Link href="/shop" className="btn-noir group">
+          <Link href="/shop" className="btn-noir group w-full md:w-auto">
             <span>Explore Collection</span>
           </Link>
-          <Link href="/about" className="text-[10px] tracking-[0.4em] uppercase text-stone hover:text-charcoal transition-all duration-500 py-4">
+          <Link href="/about" className="text-[9px] md:text-[10px] tracking-[0.4em] uppercase text-stone/40 hover:text-charcoal transition-all duration-700 py-4 hover:tracking-[0.6em]">
             Our Philosophy
           </Link>
         </motion.div>

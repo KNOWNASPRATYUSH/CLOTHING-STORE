@@ -7,10 +7,15 @@ export default function CustomCursor() {
   const ringRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
+  const [isTouch, setIsTouch] = useState(true); // Default to true to avoid flash on desktop
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    if (window.matchMedia('(hover: none)').matches) return;
+    
+    const hoverMedia = window.matchMedia('(hover: hover)');
+    setIsTouch(!hoverMedia.matches);
+
+    if (!hoverMedia.matches) return;
 
     const dot = dotRef.current;
     const ring = ringRef.current;
@@ -74,6 +79,8 @@ export default function CustomCursor() {
       cancelAnimationFrame(raf);
     };
   }, []);
+
+  if (isTouch) return null;
 
   return (
     <>
