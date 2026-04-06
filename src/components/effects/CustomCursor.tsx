@@ -81,12 +81,10 @@ export default function CustomCursor() {
         ref={dotRef}
         className={`cursor-dot ${isClicking ? 'clicking' : ''}`}
         style={{
-          width: isClicking ? '4px' : isHovering ? '3px' : '5px',
-          height: isClicking ? '4px' : isHovering ? '3px' : '5px',
-          background: isHovering ? 'var(--gold)' : 'var(--gold-light)',
-          boxShadow: isHovering ? '0 0 8px rgba(212,175,106,0.8)' : 'none',
-          opacity: isClicking ? 0.5 : 1,
-          transition: 'width 0.2s, height 0.2s, background 0.2s, box-shadow 0.2s, opacity 0.2s',
+          width: isClicking ? '4px' : isHovering ? '6px' : '4px',
+          height: isClicking ? '4px' : isHovering ? '6px' : '4px',
+          background: 'var(--charcoal)',
+          transition: 'width 0.3s, height 0.3s, background 0.3s',
         }}
       />
       <div

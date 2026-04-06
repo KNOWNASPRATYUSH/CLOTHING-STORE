@@ -43,11 +43,11 @@ export default function BrandStory() {
         </div>
 
         <ScrollReveal variant="fade" delay={0.1}>
-          <div className="relative z-10 max-w-3xl text-center mx-auto space-y-8 bg-paper-white/50 backdrop-blur-md p-12 rounded-3xl border border-subtle">
-            <h2 className="font-display text-4xl md:text-6xl uppercase tracking-tight">
+          <div className="relative z-10 max-w-4xl text-center mx-auto space-y-12">
+            <h2 className="font-display text-5xl md:text-8xl uppercase tracking-tight-luxury text-mask">
               Stripped to its essence
             </h2>
-            <p className="font-body opacity-80 max-w-xl mx-auto leading-relaxed">
+            <p className="font-body opacity-60 max-w-2xl mx-auto leading-relaxed text-sm md:text-base tracking-wide">
               We remove the unnecessary to reveal the architecture of modern luxury. 
               Every garment is an exercise in restraint, focusing on precise cuts, 
               uncompromising materials, and enduring form.
@@ -73,12 +73,12 @@ export default function BrandStory() {
                     alt={cat.title}
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                    className="object-cover noir-reveal transition-transform duration-[1.5s] ease-silk group-hover:scale-105"
                   />
                 </div>
                 <div className="mt-6 flex items-center justify-between">
-                  <h3 className="font-display text-xl uppercase tracking-wider">{cat.title}</h3>
-                  <span className="font-body text-xs tracking-ultra uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+                  <h3 className="font-display text-2xl uppercase tracking-tight-luxury leading-none">{cat.title}</h3>
+                  <span className="font-body text-[10px] tracking-luxury uppercase opacity-0 group-hover:opacity-60 transition-opacity">
                     Discover
                   </span>
                 </div>

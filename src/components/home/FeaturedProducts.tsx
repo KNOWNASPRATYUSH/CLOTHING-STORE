@@ -12,11 +12,11 @@ export default function FeaturedProducts() {
     <section className="relative py-24 px-8 md:px-[5%] bg-paper-white text-charcoal">
       <div className="w-full flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
         <div>
-          <h2 className="font-display text-4xl md:text-5xl uppercase tracking-tight">
+          <h2 className="font-display text-5xl md:text-8xl uppercase tracking-tight-luxury text-mask">
             Selected Works
           </h2>
         </div>
-        <Link href="/shop" className="text-xs uppercase tracking-widest text-stone hover:text-charcoal transition-colors">
+        <Link href="/shop" className="text-[10px] tracking-[0.4em] uppercase text-stone hover:text-charcoal transition-all duration-500 mb-2">
           View All Objects →
         </Link>
       </div>
@@ -37,15 +37,15 @@ export default function FeaturedProducts() {
                   alt={product.name}
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                  className="object-cover noir-reveal transition-transform duration-[1.5s] ease-silk group-hover:scale-105"
                 />
               </div>
-              <div className="flex justify-between items-start">
+              <div className="flex justify-between items-start mt-6">
                 <div>
-                  <h3 className="font-display text-lg text-charcoal">{product.name}</h3>
-                  <p className="font-body text-xs text-stone mt-1 capitalize">{product.category}</p>
+                  <h3 className="font-display text-2xl tracking-tight-luxury text-charcoal">{product.name}</h3>
+                  <p className="font-body text-[10px] tracking-luxury text-stone mt-2 uppercase">{product.category}</p>
                 </div>
-                <span className="font-body text-sm">£{product.price}</span>
+                <span className="font-body text-[11px] tracking-luxury self-start pt-1">£{product.price}</span>
               </div>
             </Link>
           </motion.div>

@@ -62,7 +62,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.4, ease: [0.23, 1, 0.32, 1] }}
-          className="font-display font-normal uppercase leading-[0.85] text-charcoal"
+          className="font-display font-normal uppercase leading-[0.85] text-mask"
           style={{ fontSize: 'clamp(5rem, 15vw, 12rem)' }}
         >
           Silent <br /> <span className="italic">Form</span>
@@ -72,12 +72,12 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="mt-16 flex gap-6"
+          className="mt-16 flex flex-col md:flex-row gap-6 md:gap-12"
         >
-          <Link href="/shop" className="btn-primary">
-            Explore Collection
+          <Link href="/shop" className="btn-noir group">
+            <span>Explore Collection</span>
           </Link>
-          <Link href="/about" className="btn-outline">
+          <Link href="/about" className="text-[10px] tracking-[0.4em] uppercase text-stone hover:text-charcoal transition-all duration-500 py-4">
             Our Philosophy
           </Link>
         </motion.div>
