@@ -2,7 +2,7 @@
 
 import { useEffect, useState, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { View } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
 
 const FluidBrand = lazy(() => import('@/components/3d/FluidBrand'));
 
@@ -27,12 +27,12 @@ export default function Loader3D({ onComplete }: { onComplete: () => void }) {
           transition={{ duration: 0.8, ease: [0.87, 0, 0.13, 1] }}
           className="fixed inset-0 z-[9999] bg-paper-white flex flex-col items-center justify-center overflow-hidden"
         >
-          <div className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply opacity-50 flex items-center justify-center">
-            <View className="w-full h-full">
+          <div className="absolute inset-0 z-0 pointer-events-none opacity-50 flex items-center justify-center">
+            <Canvas camera={{ position: [0, 0, 5], fov: 45 }} className="w-full h-full">
               <Suspense fallback={null}>
                 <FluidBrand />
               </Suspense>
-            </View>
+            </Canvas>
           </div>
 
           <motion.div

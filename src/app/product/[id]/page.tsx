@@ -70,7 +70,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
         </View>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-12 relative z-10">
         {/* Breadcrumb */}
         <div className="py-8 flex items-center gap-3 text-xs tracking-widest uppercase text-stone">
           <Link href="/shop" className="hover:text-charcoal transition-colors flex items-center gap-2 group">
@@ -83,9 +83,9 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
         </div>
 
         {/* Product Layout */}
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start pb-24">
+        <div className="flex flex-col lg:flex-row gap-16 lg:gap-20 items-start pb-24 w-full">
           {/* Left: Images */}
-          <div className="flex flex-col-reverse lg:flex-row gap-6 sticky top-32">
+          <div className="flex flex-col-reverse lg:flex-row gap-6 sticky top-32 w-full lg:w-1/2">
             {/* Thumbnails */}
             <div className="flex lg:flex-col gap-4 w-full lg:w-24 shrink-0 overflow-x-auto no-scrollbar lg:overflow-visible">
               {product.images.map((img, i) => (
@@ -102,7 +102,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
             </div>
 
             {/* Main Image Stage */}
-            <div className="flex-1 relative overflow-hidden bg-stone-light aspect-[3/4]">
+            <div className="flex-1 relative overflow-hidden bg-stone-light aspect-[3/4] w-full">
               <AnimatePresence mode="wait">
                 <motion.div
                   key="static"
@@ -129,7 +129,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
-            className="flex flex-col pt-0 lg:pt-4"
+            className="flex flex-col pt-0 lg:pt-4 w-full lg:flex-1"
           >
             <p className="text-stone text-[10px] tracking-widest uppercase mb-4">
               {product.category}

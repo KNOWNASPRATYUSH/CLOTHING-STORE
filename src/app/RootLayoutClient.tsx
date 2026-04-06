@@ -39,7 +39,7 @@ export default function RootLayoutClient({ children }: { children: ReactNode }) 
 
       <div
         ref={eventSource}
-        className={`relative min-h-screen flex flex-col transition-opacity duration-1000 ${
+        className={`w-screen overflow-x-hidden relative min-h-screen flex flex-col transition-opacity duration-1000 ${
           isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100'
         }`}
         style={{ background: 'var(--off-white)' }}
