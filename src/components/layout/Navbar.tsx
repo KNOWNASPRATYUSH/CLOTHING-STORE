@@ -54,7 +54,7 @@ export default function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-off-white/90 backdrop-blur-md ${scrolled ? 'border-b border-subtle py-4' : 'py-6'}`}
       >
-        <div className="max-w-[1600px] mx-auto px-6 flex items-center justify-between">
+        <div className="w-full px-8 md:px-[5%] flex items-center justify-between">
           <ul className="hidden md:flex items-center gap-8">
             {navLinks.slice(0, 2).map((link) => (
               <li key={link.href}>

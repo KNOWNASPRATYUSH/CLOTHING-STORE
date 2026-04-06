@@ -32,7 +32,7 @@ export default function BrandStory() {
 
   return (
     <>
-      <section ref={sectionRef} className="relative py-48 px-6 bg-paper-white text-charcoal flex flex-col items-center overflow-hidden">
+      <section ref={sectionRef} className="relative py-48 px-8 md:px-[5%] bg-paper-white text-charcoal flex flex-col items-center overflow-hidden">
         {/* 3D Geometry Background */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <View className="w-full h-full">
@@ -56,8 +56,8 @@ export default function BrandStory() {
         </ScrollReveal>
       </section>
 
-      <section className="py-24 px-6 md:px-12 bg-off-white">
-        <div className="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+      <section className="py-24 px-8 md:px-[5%] bg-off-white">
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-12">
           {categories.map((cat, i) => (
             <motion.div
               key={cat.title}

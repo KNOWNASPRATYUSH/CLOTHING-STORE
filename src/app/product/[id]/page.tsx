@@ -70,7 +70,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
         </View>
       </div>
 
-      <div className="max-w-[1600px] mx-auto px-6 md:px-12 relative z-10">
+      <div className="w-full px-8 md:px-[5%] relative z-10">
         {/* Breadcrumb */}
         <div className="py-8 flex items-center gap-3 text-xs tracking-widest uppercase text-stone">
           <Link href="/shop" className="hover:text-charcoal transition-colors flex items-center gap-2 group">

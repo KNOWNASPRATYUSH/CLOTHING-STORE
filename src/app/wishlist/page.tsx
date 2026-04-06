@@ -67,7 +67,7 @@ export default function WishlistPage() {
         </View>
       </div>
 
-      <div className="max-w-[1600px] mx-auto px-6 relative z-10">
+      <div className="w-full px-8 md:px-[5%] relative z-10">
         {/* Header */}
         <ScrollReveal variant="clip-reveal">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">

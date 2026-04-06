@@ -31,7 +31,7 @@ export default function Footer() {
 
   return (
     <footer ref={ref} className="bg-paper-white border-t border-subtle">
-      <div className="max-w-[1600px] mx-auto px-6 pt-20 pb-12">
+      <div className="w-full px-8 md:px-[5%] pt-20 pb-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-12 pb-16">
           {/* Brand */}
           <motion.div
