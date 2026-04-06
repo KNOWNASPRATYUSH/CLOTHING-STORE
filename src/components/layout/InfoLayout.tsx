@@ -4,6 +4,7 @@ import { ReactNode, Suspense, lazy } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { View } from '@react-three/drei';
 
 const AmbientLightBeams = lazy(() => import('@/components/3d/AmbientLightBeams'));
@@ -16,6 +17,7 @@ type Props = {
 };
 
 export default function InfoLayout({ title, subtitle, children, image }: Props) {
+  const pathname = usePathname();
   return (
     <div className="min-h-screen bg-off-white text-charcoal selection:bg-charcoal selection:text-paper-white relative">
       <div className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply opacity-50">
@@ -52,40 +54,27 @@ export default function InfoLayout({ title, subtitle, children, image }: Props) 
             transition={{ duration: 1.5, ease: [0.23, 1, 0.32, 1] }}
           >
             {subtitle && (
-              <p className="text-stone text-[10px] tracking-[0.8em] uppercase mb-6 flex items-center gap-6">
+              <p className="text-stone text-[10px] tracking-[0.8em] uppercase mb-10 flex items-center gap-6">
                 <span className="inline-block w-12 h-px bg-stone-light" />
                 {subtitle}
               </p>
             )}
-            <h1 className="font-display text-7xl md:text-9xl text-charcoal leading-[0.85] tracking-tighter max-w-4xl">
+            <h1 className="font-display text-7xl md:text-9xl text-mask leading-[0.85] tracking-tight-luxury max-w-5xl">
               {title}
             </h1>
           </motion.div>
         </div>
-        
-        {/* Scroll Indicator */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
-          className="absolute bottom-10 right-10 z-20 hidden md:block"
-        >
-          <div className="flex flex-col items-center gap-4">
-            <span className="text-[9px] tracking-[0.5em] uppercase text-stone rotate-90 origin-right translate-x-full">Scroll</span>
-            <div className="w-px h-12 bg-gradient-to-b from-stone-light to-transparent" />
-          </div>
-        </motion.div>
       </section>
 
       {/* Content Area */}
-      <section className="py-32 relative">
+      <section className="py-48 relative">
         <div className="w-full px-8 md:px-[5%] grid md:grid-cols-12 gap-20 lg:gap-32">
           {/* Side Info */}
           <div className="md:col-span-4 lg:col-span-3">
              <div className="sticky top-40 space-y-16">
-               <div className="space-y-8">
-                 <p className="text-[10px] tracking-[0.6em] uppercase text-stone">Navigation</p>
-                 <ul className="space-y-6">
+               <div className="space-y-10">
+                 <p className="text-[10px] tracking-[0.6em] uppercase text-stone/40">Navigation</p>
+                 <ul className="space-y-8">
                    {[
                      { label: 'About', path: '/about' },
                      { label: 'Sustainability', path: '/sustainability' },
@@ -97,9 +86,13 @@ export default function InfoLayout({ title, subtitle, children, image }: Props) 
                      <li key={item.path}>
                        <Link 
                         href={item.path} 
-                        className="group flex items-center gap-4 text-[10px] uppercase tracking-[0.3em] text-stone hover:text-charcoal transition-all duration-500"
+                        className={`group flex items-center gap-4 text-[10px] uppercase tracking-[0.3em] transition-all duration-700 ${
+                          pathname === item.path ? 'text-charcoal' : 'text-stone hover:text-charcoal'
+                        }`}
                        >
-                         <span className="w-0 h-px bg-charcoal group-hover:w-4 transition-all duration-500" />
+                         <span className={`h-px bg-charcoal transition-all duration-700 ${
+                           pathname === item.path ? 'w-8' : 'w-0 group-hover:w-6'
+                         }`} />
                          {item.label}
                        </Link>
                      </li>
@@ -107,11 +100,11 @@ export default function InfoLayout({ title, subtitle, children, image }: Props) 
                  </ul>
                </div>
                
-               <div className="pt-12 border-t border-subtle space-y-6">
-                  <p className="text-[10px] tracking-[0.6em] uppercase text-stone">Communication</p>
-                  <div className="space-y-2">
-                    <p className="text-[11px] text-stone-light leading-relaxed tracking-wider font-light italic">Dedicated facilitation for all acquisition inquiries.</p>
-                    <p className="pt-4 text-charcoal text-[11px] tracking-[0.2em] font-medium hover:text-stone transition-colors cursor-pointer">concierge@luxnoir.com</p>
+               <div className="pt-16 border-t border-subtle space-y-8">
+                  <p className="text-[10px] tracking-[0.6em] uppercase text-stone/40">Communication</p>
+                  <div className="space-y-4">
+                    <p className="text-[12px] text-stone leading-relaxed tracking-wide font-light italic">Dedicated facilitation for all acquisition inquiries.</p>
+                    <p className="pt-4 text-charcoal text-[11px] tracking-[0.3em] font-medium hover:text-stone transition-colors cursor-pointer uppercase">concierge@luxnoir.com</p>
                   </div>
                 </div>
                

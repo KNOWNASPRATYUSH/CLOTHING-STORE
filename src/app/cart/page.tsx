@@ -74,19 +74,19 @@ export default function CartPage() {
                 <span className="inline-block w-8 h-px bg-stone-light" />
                 Inventory / {items.length} {items.length === 1 ? 'Piece' : 'Pieces'}
               </p>
-              <h1 className="font-display text-6xl md:text-8xl text-charcoal leading-[0.8] tracking-tighter">Your Bag</h1>
+              <h1 className="font-display text-6xl md:text-8xl text-mask leading-[0.8] tracking-tight-luxury">Your Bag</h1>
             </div>
             <button
               onClick={clearCart}
-              className="text-stone text-[10px] tracking-[0.3em] uppercase hover:text-charcoal transition-colors duration-500 flex items-center gap-2 group pb-2"
+              className="text-stone text-[9px] tracking-[0.4em] uppercase hover:text-charcoal transition-colors duration-700 flex items-center gap-3 group pb-2"
             >
-              <X size={12} className="group-hover:rotate-90 transition-transform duration-500" />
-              Purge All
+              <X size={12} strokeWidth={1} className="group-hover:rotate-90 transition-transform duration-700" />
+              Purge selection
             </button>
           </div>
         </ScrollReveal>
 
-        <div className="grid lg:grid-cols-3 gap-16 lg:gap-24 items-start">
+        <div className="grid lg:grid-cols-3 gap-16 lg:gap-32 items-start">
           {/* Cart Items */}
           <div className="lg:col-span-2 space-y-0 border-t border-subtle">
             <AnimatePresence mode="popLayout">
@@ -96,75 +96,74 @@ export default function CartPage() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, x: 50, transition: { duration: 0.4 } }}
-                  transition={{ duration: 0.8, delay: i * 0.1, ease: [0.23, 1, 0.32, 1] }}
-                  className="flex gap-8 py-10 border-b border-subtle group"
+                  transition={{ duration: 1.2, delay: i * 0.1, ease: [0.23, 1, 0.32, 1] }}
+                  className="flex gap-10 py-12 border-b border-subtle group"
                 >
                   {/* Image */}
                   <Link 
                     href={`/product/${item.product.id}`} 
-                    className="shrink-0 w-32 h-44 md:w-40 md:h-56 overflow-hidden bg-stone-light border border-subtle relative"
+                    className="shrink-0 w-32 h-44 md:w-44 md:h-60 overflow-hidden bg-off-white relative"
                   >
                     <Image
                       src={item.product.images[0]}
                       alt={item.product.name}
                       fill
-                      sizes="200px"
-                      className="object-cover group-hover:scale-110 transition-transform duration-[2000ms]"
+                      sizes="300px"
+                      className="object-cover noir-reveal transition-transform duration-[2000ms] group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-charcoal/5 group-hover:bg-transparent transition-colors duration-700" />
                   </Link>
 
                   {/* Details */}
-                  <div className="flex-1 flex flex-col justify-between py-1">
+                  <div className="flex-1 flex flex-col justify-between py-2">
                     <div>
                       <div className="flex items-start justify-between gap-6">
-                        <div className="space-y-1">
+                        <div className="space-y-2">
                           <Link href={`/product/${item.product.id}`}>
-                            <h3 className="font-display text-2xl md:text-3xl text-charcoal hover:text-stone transition-colors duration-500 leading-tight">
+                            <h3 className="font-display text-2xl md:text-4xl text-charcoal hover:text-stone transition-colors duration-700 leading-none tracking-tight-luxury">
                               {item.product.name}
                             </h3>
                           </Link>
-                          <p className="text-stone text-[10px] tracking-[0.3em] uppercase">{item.product.category}</p>
+                          <p className="text-stone text-[9px] tracking-[0.4em] uppercase">{item.product.category}</p>
                         </div>
-                        <span className="font-display text-2xl text-charcoal shrink-0">
+                        <span className="font-body text-[11px] tracking-luxury text-charcoal shrink-0 pt-2">
                           {formatPrice(item.product.price * item.quantity)}
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-4 mt-6">
-                        <span className="text-stone text-[9px] tracking-[0.3em] uppercase">Matrix:</span>
-                        <span className="text-charcoal text-[10px] tracking-widest uppercase border border-subtle px-3 py-1 bg-stone-light/50 font-medium">
+                      <div className="flex items-center gap-6 mt-10">
+                        <span className="text-stone text-[9px] tracking-[0.4em] uppercase">Matrix:</span>
+                        <span className="text-charcoal text-[9px] tracking-[0.3em] uppercase border border-subtle px-4 py-2 font-medium">
                           {item.size}
                         </span>
                       </div>
                     </div>
 
                     {/* Quantity + Remove */}
-                    <div className="flex items-center justify-between mt-8">
-                      <div className="flex items-center bg-off-white border border-subtle backdrop-blur-md">
+                    <div className="flex items-center justify-between mt-10">
+                      <div className="flex items-center bg-off-white border border-subtle">
                         <button
                           onClick={() => {
                             if (item.quantity === 1) removeItem(item.product.id, item.size);
                             else updateQuantity(item.product.id, item.size, item.quantity - 1);
                           }}
-                          className="w-10 h-10 flex items-center justify-center text-stone hover:text-charcoal transition-colors duration-500"
+                          className="w-12 h-12 flex items-center justify-center text-stone hover:text-charcoal transition-all duration-700"
                         >
-                          <Minus size={10} />
+                          <Minus size={10} strokeWidth={1} />
                         </button>
-                        <span className="w-10 text-center text-charcoal text-[11px] font-body tracking-widest">{item.quantity}</span>
+                        <span className="w-12 text-center text-charcoal text-[11px] font-body tracking-[0.3em] font-light">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.product.id, item.size, item.quantity + 1)}
-                          className="w-10 h-10 flex items-center justify-center text-stone hover:text-charcoal transition-colors duration-500"
+                          className="w-12 h-12 flex items-center justify-center text-stone hover:text-charcoal transition-all duration-700"
                         >
-                          <Plus size={10} />
+                          <Plus size={10} strokeWidth={1} />
                         </button>
                       </div>
 
                       <button
                         onClick={() => removeItem(item.product.id, item.size)}
-                        className="flex items-center gap-2 text-stone hover:text-charcoal transition-colors duration-500 text-[10px] tracking-widest uppercase font-light"
+                        className="flex items-center gap-3 text-stone hover:text-charcoal transition-all duration-700 text-[9px] tracking-[0.4em] uppercase font-light group"
                       >
-                        <Trash2 size={12} className="opacity-60" />
+                        <Trash2 size={12} strokeWidth={1} className="opacity-40 group-hover:opacity-100 transition-opacity" />
                         Remove
                       </button>
                     </div>
@@ -178,47 +177,46 @@ export default function CartPage() {
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.2, delay: 0.3, ease: [0.23, 1, 0.32, 1] }}
-            className="lg:sticky lg:top-32 h-fit border border-subtle p-10 bg-paper-white/50 backdrop-blur-2xl"
+            transition={{ duration: 1.5, delay: 0.3, ease: [0.23, 1, 0.32, 1] }}
+            className="lg:sticky lg:top-40 h-fit glass p-12"
           >
-            <h2 className="font-display text-3xl text-charcoal mb-10 tracking-tight text-center">Summary</h2>
+            <h2 className="font-display text-4xl text-mask mb-12 tracking-tight-luxury text-center uppercase">Summary</h2>
 
-            <div className="space-y-5 pb-8 border-b border-subtle">
-              <div className="flex justify-between items-center text-stone text-[10px] tracking-[0.3em] uppercase">
+            <div className="space-y-6 pb-10 border-b border-subtle">
+              <div className="flex justify-between items-center text-stone text-[9px] tracking-[0.4em] uppercase">
                 <span>Subtotal</span>
-                <span className="text-charcoal tracking-normal font-normal">{formatPrice(subtotal)}</span>
+                <span className="text-charcoal tracking-luxury font-normal">{formatPrice(subtotal)}</span>
               </div>
-              <div className="flex justify-between items-center text-stone text-[10px] tracking-[0.3em] uppercase">
+              <div className="flex justify-between items-center text-stone text-[9px] tracking-[0.4em] uppercase">
                 <span>Shipping</span>
-                <span className={shipping === 0 ? 'text-stone tracking-normal font-normal italic' : 'text-charcoal tracking-normal font-normal'}>
-                  {shipping === 0 ? 'Complimentary' : formatPrice(shipping)}
+                <span className={shipping === 0 ? 'text-stone tracking-wide font-light italic lowercase' : 'text-charcoal tracking-luxury font-normal'}>
+                  {shipping === 0 ? 'complimentary' : formatPrice(shipping)}
                 </span>
               </div>
-              <div className="flex justify-between items-center text-stone text-[10px] tracking-[0.3em] uppercase">
+              <div className="flex justify-between items-center text-stone text-[9px] tracking-[0.4em] uppercase">
                 <span>Estimated Tax</span>
-                <span className="text-charcoal tracking-normal font-normal">{formatPrice(tax)}</span>
+                <span className="text-charcoal tracking-luxury font-normal">{formatPrice(tax)}</span>
               </div>
             </div>
 
-            <div className="flex justify-between items-center py-8">
-              <span className="text-stone text-[10px] tracking-[0.5em] uppercase">Total</span>
-              <span className="font-display text-4xl text-charcoal">{formatPrice(total)}</span>
+            <div className="flex justify-between items-center py-10">
+              <span className="text-stone text-[9px] tracking-[0.6em] uppercase">Total</span>
+              <span className="font-display text-5xl text-charcoal tracking-tight-luxury">{formatPrice(total)}</span>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-6">
               <Link
                 href="/checkout"
-                className="group relative w-full flex items-center justify-center gap-4 bg-charcoal text-paper-white py-5 text-[10px] tracking-[0.6em] uppercase font-body hover:bg-off-white hover:text-charcoal border border-charcoal transition-all duration-700 overflow-hidden"
+                className="btn-noir w-full"
               >
-                <span className="relative z-10 font-medium">Checkout Flow</span>
-                <ArrowRight size={14} className="relative z-10 group-hover:translate-x-1 transition-transform" />
+                <span>Checkout Flow</span>
               </Link>
 
               <Link
                 href="/shop"
-                className="w-full flex items-center justify-center py-4 text-stone/40 text-[9px] tracking-[0.5em] uppercase hover:text-charcoal transition-colors duration-500"
+                className="w-full flex items-center justify-center py-4 text-stone/40 text-[9px] tracking-[0.6em] uppercase hover:text-charcoal transition-all duration-700"
               >
-                Continue Search
+                Continue Selection
               </Link>
             </div>
             

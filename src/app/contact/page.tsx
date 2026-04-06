@@ -6,73 +6,59 @@ import { Mail, MapPin, Phone } from 'lucide-react';
 export default function ContactPage() {
   return (
     <InfoLayout title="Connect with Noir" subtitle="Get in Touch">
-      <div className="grid md:grid-cols-2 gap-16">
-        <div className="space-y-12">
+      <div className="grid md:grid-cols-2 gap-24 items-start">
+        <div className="space-y-16">
           <section>
-            <h2 className="mb-6">Global Support</h2>
-            <p>Our team is available to assist with any enquiries, from styling advice to order tracking. We aim to respond within 24 hours.</p>
-            <div className="mt-10 space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-stone-light/20 flex items-center justify-center rounded-sm border border-subtle">
-                  <Mail size={18} className="text-charcoal" />
+            <h2 className="mb-10 text-5xl md:text-7xl font-display tracking-tight-luxury text-mask uppercase italic leading-none">Global <br /> Relations</h2>
+            <p className="text-stone text-xl leading-relaxed font-light tracking-wide max-w-lg">Our team is available to assist with any enquiries, from styling advice to order tracking. We aim to respond within 24 hours.</p>
+            <div className="mt-16 space-y-10">
+              {[
+                { icon: Mail, label: 'Protocols', value: 'concierge@aura.com' },
+                { icon: Phone, label: 'Direct', value: '+1 (212) 555-0198' },
+                { icon: MapPin, label: 'Studio', value: '742 Hudson Street, New York, NY' }
+              ].map((item, idx) => (
+                <div key={idx} className="flex items-center gap-6 group">
+                  <div className="w-14 h-14 bg-off-white flex items-center justify-center border border-subtle transition-all duration-700 group-hover:border-charcoal/30">
+                    <item.icon size={16} strokeWidth={1} className="text-charcoal" />
+                  </div>
+                  <div>
+                    <p className="text-[8px] text-stone/40 uppercase tracking-[0.5em] mb-1">{item.label}</p>
+                    <p className="text-charcoal text-xs tracking-[0.2em] font-medium uppercase">{item.value}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-xs text-stone uppercase tracking-widest">Email</p>
-                  <p className="text-charcoal">concierge@luxnoir.com</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-stone-light/20 flex items-center justify-center rounded-sm border border-subtle">
-                  <Phone size={18} className="text-charcoal" />
-                </div>
-                <div>
-                  <p className="text-xs text-stone uppercase tracking-widest">Phone</p>
-                  <p className="text-charcoal">+1 (212) 555-0198</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-stone-light/20 flex items-center justify-center rounded-sm border border-subtle">
-                  <MapPin size={18} className="text-charcoal" />
-                </div>
-                <div>
-                  <p className="text-xs text-stone uppercase tracking-widest">Studio</p>
-                  <p className="text-charcoal">742 Hudson Street, New York, NY</p>
-                </div>
-              </div>
+              ))}
             </div>
           </section>
         </div>
 
-        <div>
-          <form onSubmit={(e) => e.preventDefault()} className="bg-paper-white border border-subtle p-10 space-y-8 backdrop-blur-md">
-            <h3 className="font-display text-3xl mb-4 text-charcoal">Send a Message</h3>
-            <div className="space-y-4">
-              <div>
-                <label className="text-[10px] tracking-[0.4em] uppercase text-stone block mb-2">FullName</label>
-                <input type="text" className="w-full bg-off-white border border-subtle p-4 text-charcoal focus:border-charcoal/30 outline-none transition-colors" />
+        <div className="glass p-12 md:p-16">
+          <form onSubmit={(e) => e.preventDefault()} className="space-y-10">
+            <h3 className="font-display text-4xl mb-6 text-mask tracking-tight-luxury uppercase italic">Transmission</h3>
+            <div className="space-y-8">
+              <div className="group">
+                <label className="text-[8px] tracking-[0.5em] uppercase text-stone mb-4 ml-1 group-focus-within:text-charcoal transition-all duration-700">Identity / Name</label>
+                <input type="text" placeholder="Jane Noir" className="w-full bg-transparent border-b border-subtle text-charcoal placeholder:text-stone-light/40 py-4 text-[13px] tracking-wide font-body outline-none focus:border-charcoal transition-all duration-1000" />
               </div>
-              <div>
-                <label className="text-[10px] tracking-[0.4em] uppercase text-stone block mb-2">Email Address</label>
-                <input type="email" className="w-full bg-off-white border border-subtle p-4 text-charcoal focus:border-charcoal/30 outline-none transition-colors" />
+              <div className="group">
+                <label className="text-[8px] tracking-[0.5em] uppercase text-stone mb-4 ml-1 group-focus-within:text-charcoal transition-all duration-700">Communication / Email</label>
+                <input type="email" placeholder="curator@aura.com" className="w-full bg-transparent border-b border-subtle text-charcoal placeholder:text-stone-light/40 py-4 text-[13px] tracking-wide font-body outline-none focus:border-charcoal transition-all duration-1000" />
               </div>
-              <div>
-                <label className="text-[10px] tracking-[0.4em] uppercase text-stone block mb-2">Subject</label>
-                <select className="w-full bg-off-white border border-subtle p-4 text-charcoal focus:border-charcoal/30 outline-none transition-colors appearance-none">
-                  <option>Order Enquiry</option>
-                  <option>Styling Advice</option>
-                  <option>Wholesale</option>
-                  <option>Other</option>
+              <div className="group">
+                <label className="text-[8px] tracking-[0.5em] uppercase text-stone mb-4 ml-1 group-focus-within:text-charcoal transition-all duration-700">Subject / Intent</label>
+                <select className="w-full bg-transparent border-b border-subtle text-charcoal py-4 text-[13px] tracking-wide font-body outline-none focus:border-charcoal transition-all duration-1000 appearance-none cursor-pointer">
+                  <option className="bg-off-white">Product Acquisition</option>
+                  <option className="bg-off-white">Styling Consultation</option>
+                  <option className="bg-off-white">Atelier Inquiry</option>
+                  <option className="bg-off-white">Other</option>
                 </select>
               </div>
-              <div>
-                <label className="text-[10px] tracking-[0.4em] uppercase text-stone block mb-2">Message</label>
-                <textarea rows={4} className="w-full bg-off-white border border-subtle p-4 text-charcoal focus:border-charcoal/30 outline-none transition-colors" />
+              <div className="group">
+                <label className="text-[8px] tracking-[0.5em] uppercase text-stone mb-4 ml-1 group-focus-within:text-charcoal transition-all duration-700">Manifest / Message</label>
+                <textarea rows={4} placeholder="Your message..." className="w-full bg-transparent border-b border-subtle text-charcoal placeholder:text-stone-light/40 py-4 text-[13px] tracking-wide font-body outline-none focus:border-charcoal transition-all duration-1000 resize-none" />
               </div>
             </div>
-            <button className="w-full bg-charcoal text-paper-white py-4 text-xs tracking-[0.3em] uppercase font-bold hover:bg-off-white hover:text-charcoal border border-charcoal transition-all duration-700">
-              Send Message
+            <button className="btn-noir w-full">
+              <span>Send Transmission</span>
             </button>
           </form>
         </div>
