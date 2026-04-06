@@ -8,7 +8,6 @@ import CustomCursor from '@/components/effects/CustomCursor';
 import TransitionCurtain from '@/components/layout/TransitionCurtain';
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
 import Loader3D from '@/components/layout/Loader3D';
-import Scene from '@/components/3d/Scene';
 
 export default function RootLayoutClient({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +24,7 @@ export default function RootLayoutClient({ children }: { children: ReactNode }) 
 
   useEffect(() => {
     setIsMounted(true);
-    const safetyTimer = setTimeout(() => setIsLoading(false), 5000);
+    const safetyTimer = setTimeout(() => setIsLoading(false), 2000);
     return () => clearTimeout(safetyTimer);
   }, []);
 
@@ -39,12 +38,12 @@ export default function RootLayoutClient({ children }: { children: ReactNode }) 
 
       <div
         ref={eventSource}
-        className={`relative min-h-screen flex flex-col transition-opacity duration-[2000ms] ${
+        className={`relative min-h-screen flex flex-col transition-opacity duration-1000 ${
           isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100'
         }`}
-        style={{ background: 'var(--obsidian)' }}
+        style={{ background: 'var(--off-white)' }}
       >
-        {/* Scroll progress bar — ultra-thin gold line at top */}
+        {/* Scroll progress bar */}
         <motion.div
           style={{
             scaleX,
@@ -52,22 +51,12 @@ export default function RootLayoutClient({ children }: { children: ReactNode }) 
             top: 0,
             left: 0,
             right: 0,
-            height: '1px',
-            background: 'linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-light))',
+            height: '2px',
+            background: 'var(--charcoal)',
             transformOrigin: '0%',
             zIndex: 9995,
-            boxShadow: '0 0 8px rgba(212,175,106,0.5)',
           }}
         />
-
-        {/* Film grain overlay */}
-        <div className="grain-overlay" aria-hidden="true" />
-
-        {/* Vignette overlay */}
-        <div className="vignette-overlay" aria-hidden="true" />
-
-        {/* 3D Scene canvas (fixed background) */}
-        <Scene eventSource={eventSource} />
 
         <SmoothScroll>
           <TransitionCurtain />

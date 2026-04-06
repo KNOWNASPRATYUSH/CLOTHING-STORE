@@ -1,22 +1,21 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, Jost } from 'next/font/google';
+import { Bodoni_Moda, Inter } from 'next/font/google';
 import './globals.css';
 import RootLayoutClient from './RootLayoutClient';
 import { Providers } from '@/components/layout/Providers';
 
-const cormorant = Cormorant_Garamond({
+const bodoni = Bodoni_Moda({
   subsets: ['latin'],
-  variable: '--font-cormorant',
+  variable: '--font-bodoni',
   display: 'swap',
-  weight: ['300', '400', '500', '600'],
+  weight: ['400', '500', '600', '700'],
   style: ['normal', 'italic'],
 });
 
-const jost = Jost({
+const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-jost',
+  variable: '--font-inter',
   display: 'swap',
-  weight: ['200', '300', '400', '500', '600'],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${jost.variable}`}>
+    <html lang="en" className={`${bodoni.variable} ${inter.variable}`}>
       <body className="antialiased" suppressHydrationWarning>
         <Providers>
           <RootLayoutClient>{children}</RootLayoutClient>

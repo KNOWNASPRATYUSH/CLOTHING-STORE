@@ -6,9 +6,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { SlidersHorizontal, X, ChevronDown } from 'lucide-react';
 import ProductCard, { ProductCardSkeleton } from '@/components/shop/ProductCard';
 import { products, categories, Category } from '@/data/products';
-import { View, Preload } from '@react-three/drei';
-import Brand3D from '@/components/3d/Brand3D';
-import ScrollReveal from '@/components/effects/ScrollReveal';
 
 const SIZES = ['XS', 'S', 'M', 'L', 'XL', 'One Size'];
 const SORT_OPTIONS = [
@@ -40,7 +37,6 @@ function ShopContent() {
     const search = searchParams.get('search');
     if (search) setSearchQuery(search);
 
-    // Simulate loading
     const timer = setTimeout(() => setIsLoading(false), 600);
     return () => clearTimeout(timer);
   }, [searchParams]);
@@ -80,77 +76,60 @@ function ShopContent() {
   const hasActiveFilters = selectedCategory !== 'all' || selectedSizes.length > 0 || priceRange[0] > 0 || priceRange[1] < 2500;
 
   return (
-    <div className="min-h-screen pt-24 bg-transparent">
+    <div className="min-h-screen pt-24 bg-off-white text-charcoal">
       {/* Page Header */}
-      <div className="max-w-7xl mx-auto px-6 py-28 border-b border-white/5 relative overflow-hidden group">
-        {/* Subtle 3D Decor */}
-        <div className="absolute right-0 top-0 w-1/2 h-full opacity-30 pointer-events-none transition-opacity duration-1000 group-hover:opacity-60">
-           <View className="w-full h-full">
-             <Suspense fallback={null}>
-               <Brand3D />
-               <Preload all />
-             </Suspense>
-           </View>
-        </div>
-
+      <div className="max-w-7xl mx-auto px-6 py-20 border-b border-subtle">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
-          className="relative z-10"
         >
-          <p className="text-gold text-[10px] tracking-[0.6em] uppercase mb-6 flex items-center gap-4">
-            <span className="inline-block w-8 h-px bg-gold/40" />
+          <p className="text-stone text-[10px] tracking-widest uppercase mb-4 flex items-center gap-4">
+            <span className="inline-block w-8 h-px bg-stone-light" />
             {filtered.length} Pieces
           </p>
-          <h1 className="font-display text-7xl md:text-[10rem] text-off-white leading-[0.8] tracking-tighter">
-            {selectedCategory === 'all' ? (
-              <>The <span className="text-gold-gradient italic font-extralight lowercase">Noir</span><br/>Collection</>
-            ) : (
-              selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)
-            )}
+          <h1 className="font-display text-5xl md:text-8xl tracking-tight">
+            {selectedCategory === 'all' ? 'Collection' : selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}
           </h1>
         </motion.div>
       </div>
 
       {/* Toolbar */}
-      <div className="sticky top-20 z-40 bg-obsidian/80 backdrop-blur-xl border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between gap-4">
-          {/* Filter toggle + clear */}
+      <div className="sticky top-20 z-40 bg-off-white/90 backdrop-blur-md border-b border-subtle">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-6">
             <button
               onClick={() => setFilterOpen(!filterOpen)}
-              className={`flex items-center gap-3 text-[10px] tracking-[0.3em] uppercase transition-colors duration-300 ${filterOpen ? 'text-gold' : 'text-stone hover:text-off-white'}`}
+              className={`flex items-center gap-2 text-[10px] tracking-widest uppercase transition-colors ${filterOpen ? 'text-charcoal font-medium' : 'text-stone hover:text-charcoal'}`}
             >
-              <SlidersHorizontal size={14} className={filterOpen ? 'text-gold' : ''} />
-              {filterOpen ? 'Close Filters' : 'Filters'}
+              <SlidersHorizontal size={14} />
+              {filterOpen ? 'Close' : 'Filters'}
             </button>
             {hasActiveFilters && (
               <button
                 onClick={clearFilters}
-                className="flex items-center gap-2 text-[9px] tracking-widest uppercase text-gold hover:text-gold-light transition-colors duration-300"
+                className="flex items-center gap-1 text-[10px] tracking-widest uppercase text-stone hover:text-charcoal transition-colors"
               >
                 <X size={12} /> Clear
               </button>
             )}
           </div>
 
-          {/* Sort */}
           <div className="flex items-center gap-3">
-            <span className="text-stone/40 text-[9px] tracking-widest uppercase hidden sm:block">Sort by:</span>
+            <span className="text-stone text-[10px] tracking-widest uppercase hidden sm:block">Sort by:</span>
             <div className="relative group">
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="appearance-none bg-transparent text-off-white text-[10px] tracking-[0.2em] uppercase pr-6 outline-none cursor-pointer hover:text-gold transition-colors duration-300"
+                className="appearance-none bg-transparent text-charcoal text-[10px] tracking-widest uppercase pr-6 outline-none cursor-pointer hover:text-stone transition-colors"
               >
                 {SORT_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value} className="bg-obsidian">
+                  <option key={opt.value} value={opt.value}>
                     {opt.label}
                   </option>
                 ))}
               </select>
-              <ChevronDown size={10} className="absolute right-0 top-1 text-stone/60 pointer-events-none group-hover:text-gold transition-colors" />
+              <ChevronDown size={10} className="absolute right-0 top-0.5 text-stone pointer-events-none" />
             </div>
           </div>
         </div>
@@ -162,22 +141,21 @@ function ShopContent() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-              className="bg-void/50 overflow-hidden"
+              transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+              className="bg-paper-white overflow-hidden border-t border-subtle"
             >
               <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-12">
-                {/* Categories */}
                 <div className="space-y-6">
-                  <h4 className="text-[10px] tracking-[0.4em] uppercase text-stone/60 px-1">Categories</h4>
+                  <h4 className="text-[10px] tracking-widest uppercase text-stone px-1">Categories</h4>
                   <div className="flex flex-col gap-2">
                     {categories.map((cat) => (
                       <button
                         key={cat}
                         onClick={() => setSelectedCategory(cat)}
-                        className={`text-left px-4 py-2 text-[11px] tracking-widest uppercase transition-all duration-500 border-l-2 ${
+                        className={`text-left px-4 py-2 text-[10px] tracking-widest uppercase transition-all border-l-2 ${
                           selectedCategory === cat
-                            ? 'border-gold text-gold bg-gold/5'
-                            : 'border-transparent text-stone hover:text-off-white'
+                            ? 'border-charcoal text-charcoal'
+                            : 'border-transparent text-stone hover:text-charcoal'
                         }`}
                       >
                         {cat}
@@ -186,18 +164,17 @@ function ShopContent() {
                   </div>
                 </div>
 
-                {/* Sizes */}
                 <div className="space-y-6">
-                  <h4 className="text-[10px] tracking-[0.4em] uppercase text-stone/60 px-1">Sizes</h4>
+                  <h4 className="text-[10px] tracking-widest uppercase text-stone px-1">Sizes</h4>
                   <div className="grid grid-cols-3 gap-2">
                     {SIZES.map((size) => (
                       <button
                         key={size}
                         onClick={() => toggleSize(size)}
-                        className={`py-3 text-[10px] uppercase border transition-all duration-500 ${
+                        className={`py-3 text-[10px] uppercase border transition-all ${
                           selectedSizes.includes(size)
-                            ? 'border-gold text-gold bg-gold/5'
-                            : 'border-white/5 text-stone hover:border-white/20 hover:text-off-white'
+                            ? 'border-charcoal text-charcoal'
+                            : 'border-subtle text-stone hover:border-stone hover:text-charcoal'
                         }`}
                       >
                         {size}
@@ -206,10 +183,9 @@ function ShopContent() {
                   </div>
                 </div>
 
-                {/* Price */}
                 <div className="space-y-6">
-                  <h4 className="text-[10px] tracking-[0.4em] uppercase text-stone/60 px-1">
-                    Price Range: <span className="text-gold tracking-normal font-normal ml-2">${priceRange[0]} – ${priceRange[1]}</span>
+                  <h4 className="text-[10px] tracking-widest uppercase text-stone px-1">
+                    Price Range: <span className="text-charcoal ml-2">${priceRange[0]} – ${priceRange[1]}</span>
                   </h4>
                   <div className="px-1 pt-4">
                     <input
@@ -219,9 +195,9 @@ function ShopContent() {
                       step={50}
                       value={priceRange[1]}
                       onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
-                      className="w-full accent-gold"
+                      className="w-full accent-charcoal"
                     />
-                    <div className="flex justify-between mt-3 text-[9px] tracking-widest text-stone/40">
+                    <div className="flex justify-between mt-3 text-[10px] tracking-widest text-stone">
                       <span>MIN: $0</span>
                       <span>MAX: $2500</span>
                     </div>
@@ -242,20 +218,14 @@ function ShopContent() {
             ))}
           </div>
         ) : filtered.length === 0 ? (
-          <ScrollReveal variant="fade">
-            <div className="text-center py-40">
-              <p className="font-display text-4xl text-stone/40 mb-8 italic">No pieces found in the shadows</p>
-              <button 
-                onClick={clearFilters} 
-                className="group relative px-12 py-4 border border-gold/30 text-gold text-[10px] tracking-[0.6em] uppercase hover:text-obsidian transition-colors duration-700"
-              >
-                <span className="relative z-10">Reset Filters</span>
-                <div className="absolute inset-0 bg-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" />
-              </button>
-            </div>
-          </ScrollReveal>
+          <div className="text-center py-32">
+            <p className="font-display text-3xl text-stone mb-6 italic">No pieces found</p>
+            <button onClick={clearFilters} className="btn-outline">
+              Clear Filters
+            </button>
+          </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-16">
             {filtered.map((product, i) => (
               <ProductCard key={product.id} product={product} index={i} />
             ))}
@@ -269,9 +239,8 @@ function ShopContent() {
 export default function ShopPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen pt-24 flex flex-col items-center justify-center bg-obsidian">
-        <div className="w-12 h-px bg-gold/30 mb-8 animate-pulse" />
-        <span className="text-stone text-[10px] tracking-[1em] uppercase animate-pulse">Initializing Shop</span>
+      <div className="min-h-screen pt-24 flex flex-col items-center justify-center bg-off-white text-stone text-[10px] tracking-widest uppercase animate-pulse">
+        Initializing Collection
       </div>
     }>
       <ShopContent />

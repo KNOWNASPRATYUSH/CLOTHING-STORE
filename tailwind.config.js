@@ -8,20 +8,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        gold: '#C9A96E',
-        'gold-light': '#E8D5B0',
+        'paper-white': '#FFFFFF',
+        'off-white': '#FAFAFA',
+        beige: '#F5F5F0',
         charcoal: '#1A1A1A',
-        dark: '#0D0D0D',
-        stone: '#8A8A8A',
-        'stone-light': '#B8B8B4',
-        'off-white': '#F5F5F0',
+        dark: '#0A0A0A',
+        stone: '#999999',
+        'stone-light': '#EAEAEA',
       },
       fontFamily: {
-        display: ['Cormorant Garamond', 'serif'],
+        display: ['Bodoni Moda', 'serif'],
         body: ['Inter', 'sans-serif'],
       },
       letterSpacing: {
-        widest: '0.3em',
+        widest: '0.15em',
       },
       transitionTimingFunction: {
         expo: 'cubic-bezier(0.77, 0, 0.175, 1)',
