@@ -3,7 +3,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, lazy, Suspense } from 'react';
+import { View } from '@react-three/drei';
+
+const CrystalHero = lazy(() => import('@/components/3d/CrystalHero'));
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -17,6 +20,15 @@ export default function Hero() {
       ref={containerRef}
       className="relative min-h-[120vh] flex flex-col justify-end bg-off-white text-charcoal pb-24 px-6 md:px-12 overflow-hidden"
     >
+      {/* 3D Refractive Layer Overlay */}
+      <div className="absolute inset-0 z-20 pointer-events-none mix-blend-overlay">
+        <View className="w-full h-full">
+          <Suspense fallback={null}>
+            <CrystalHero />
+          </Suspense>
+        </View>
+      </div>
+
       {/* Background large editorial image */}
       <motion.div
         className="absolute top-24 left-1/2 -translate-x-1/2 w-[90%] md:w-[70%] h-[75vh] z-0 overflow-hidden"

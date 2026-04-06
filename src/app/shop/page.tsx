@@ -1,11 +1,14 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SlidersHorizontal, X, ChevronDown } from 'lucide-react';
+import { View } from '@react-three/drei';
 import ProductCard, { ProductCardSkeleton } from '@/components/shop/ProductCard';
 import { products, categories, Category } from '@/data/products';
+
+const AmbientLightBeams = lazy(() => import('@/components/3d/AmbientLightBeams'));
 
 const SIZES = ['XS', 'S', 'M', 'L', 'XL', 'One Size'];
 const SORT_OPTIONS = [
@@ -76,9 +79,16 @@ function ShopContent() {
   const hasActiveFilters = selectedCategory !== 'all' || selectedSizes.length > 0 || priceRange[0] > 0 || priceRange[1] < 2500;
 
   return (
-    <div className="min-h-screen pt-24 bg-off-white text-charcoal">
-      {/* Page Header */}
-      <div className="max-w-7xl mx-auto px-6 py-20 border-b border-subtle">
+    <div className="min-h-screen pt-24 bg-off-white text-charcoal relative">
+      <div className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply opacity-50">
+        <View className="w-full h-full">
+          <Suspense fallback={null}>
+            <AmbientLightBeams />
+          </Suspense>
+        </View>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 border-b border-subtle">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}

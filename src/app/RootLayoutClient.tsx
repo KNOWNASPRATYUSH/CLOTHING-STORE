@@ -8,6 +8,7 @@ import CustomCursor from '@/components/effects/CustomCursor';
 import TransitionCurtain from '@/components/layout/TransitionCurtain';
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
 import Loader3D from '@/components/layout/Loader3D';
+import EtherealCanvas from '@/components/3d/EtherealCanvas';
 
 export default function RootLayoutClient({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -58,6 +59,7 @@ export default function RootLayoutClient({ children }: { children: ReactNode }) 
           }}
         />
 
+        <EtherealCanvas />
         <SmoothScroll>
           <TransitionCurtain />
           <CustomCursor />

@@ -3,8 +3,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, lazy, Suspense } from 'react';
+import { View } from '@react-three/drei';
 import ScrollReveal from '@/components/effects/ScrollReveal';
+
+const FluidBrand = lazy(() => import('@/components/3d/FluidBrand'));
 
 const categories = [
   {
@@ -29,9 +32,18 @@ export default function BrandStory() {
 
   return (
     <>
-      <section ref={sectionRef} className="relative py-32 px-6 bg-paper-white text-charcoal flex flex-col items-center">
+      <section ref={sectionRef} className="relative py-48 px-6 bg-paper-white text-charcoal flex flex-col items-center overflow-hidden">
+        {/* 3D Geometry Background */}
+        <div className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply opacity-80">
+          <View className="w-full h-full">
+            <Suspense fallback={null}>
+              <FluidBrand />
+            </Suspense>
+          </View>
+        </div>
+
         <ScrollReveal variant="fade" delay={0.1}>
-          <div className="max-w-3xl text-center mx-auto space-y-8">
+          <div className="relative z-10 max-w-3xl text-center mx-auto space-y-8 bg-paper-white/50 backdrop-blur-md p-12 rounded-3xl border border-subtle">
             <h2 className="font-display text-4xl md:text-6xl uppercase tracking-tight">
               Stripped to its essence
             </h2>

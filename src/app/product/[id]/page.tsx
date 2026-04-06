@@ -1,17 +1,20 @@
 'use client';
 
-import { useState, useRef, use } from 'react';
+import { useState, useRef, use, lazy, Suspense } from 'react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ShoppingBag, Heart, Star, ChevronDown, ArrowLeft } from 'lucide-react';
+import { View } from '@react-three/drei';
 import { products } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
 import { formatPrice } from '@/lib/utils';
 import ProductCard from '@/components/shop/ProductCard';
+
+const AmbientLightBeams = lazy(() => import('@/components/3d/AmbientLightBeams'));
 
 export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -58,8 +61,16 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-20 bg-off-white text-charcoal">
-      <div className="max-w-7xl mx-auto px-6">
+    <div className="min-h-screen pt-24 pb-20 bg-off-white text-charcoal relative">
+      <div className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply opacity-50">
+        <View className="w-full h-full">
+          <Suspense fallback={null}>
+            <AmbientLightBeams />
+          </Suspense>
+        </View>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Breadcrumb */}
         <div className="py-8 flex items-center gap-3 text-xs tracking-widest uppercase text-stone">
           <Link href="/shop" className="hover:text-charcoal transition-colors flex items-center gap-2 group">
