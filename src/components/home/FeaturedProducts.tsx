@@ -10,7 +10,7 @@ const featured = products.slice(0, 6);
 export default function FeaturedProducts() {
   return (
     <section className="relative py-24 px-6 md:px-12 bg-paper-white text-charcoal">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+      <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
         <div>
           <h2 className="font-display text-4xl md:text-5xl uppercase tracking-tight">
             Selected Works
@@ -21,7 +21,7 @@ export default function FeaturedProducts() {
         </Link>
       </div>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+      <div className="max-w-[1600px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
         {featured.map((product, i) => (
           <motion.div
             key={product.id}

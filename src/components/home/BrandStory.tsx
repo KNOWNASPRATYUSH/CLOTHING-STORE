@@ -57,7 +57,7 @@ export default function BrandStory() {
       </section>
 
       <section className="py-24 px-6 md:px-12 bg-off-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
           {categories.map((cat, i) => (
             <motion.div
               key={cat.title}

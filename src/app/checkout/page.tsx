@@ -62,7 +62,7 @@ export default function CheckoutPage() {
         </View>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <div className="max-w-[1400px] mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-20">
           <Link href="/" className="font-display text-4xl text-charcoal tracking-[0.4em] uppercase group">

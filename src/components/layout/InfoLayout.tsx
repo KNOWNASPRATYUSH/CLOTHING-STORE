@@ -45,7 +45,7 @@ export default function InfoLayout({ title, subtitle, children, image }: Props) 
           />
         </motion.div>
 
-        <div className="relative z-20 max-w-7xl mx-auto px-6 w-full">
+        <div className="relative z-20 max-w-[1600px] mx-auto px-6 w-full">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -79,7 +79,7 @@ export default function InfoLayout({ title, subtitle, children, image }: Props) 
 
       {/* Content Area */}
       <section className="py-32 relative">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-12 gap-20 lg:gap-32">
+        <div className="max-w-[1600px] mx-auto px-6 grid md:grid-cols-12 gap-20 lg:gap-32">
           {/* Side Info */}
           <div className="md:col-span-4 lg:col-span-3">
              <div className="sticky top-40 space-y-16">
