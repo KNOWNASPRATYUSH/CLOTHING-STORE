@@ -33,7 +33,7 @@ export default function FluidBrand() {
             thickness={3}
             roughness={0.1}
             clearcoat={1}
-            color="#ffffff"
+            color="#888888"
           />
         </mesh>
       </Float>

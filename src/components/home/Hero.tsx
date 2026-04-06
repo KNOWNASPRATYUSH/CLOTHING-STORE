@@ -21,7 +21,7 @@ export default function Hero() {
       className="relative min-h-[120vh] flex flex-col justify-end bg-off-white text-charcoal pb-24 px-6 md:px-12 overflow-hidden"
     >
       {/* 3D Refractive Layer Overlay */}
-      <div className="absolute inset-0 z-20 pointer-events-none mix-blend-overlay">
+      <div className="absolute inset-0 z-20 pointer-events-none">
         <View className="w-full h-full">
           <Suspense fallback={null}>
             <CrystalHero />

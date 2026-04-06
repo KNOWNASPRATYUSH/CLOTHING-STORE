@@ -36,7 +36,7 @@ export default function CrystalHero() {
             thickness={2}
             roughness={0.1}
             clearcoat={1}
-            color="#ffffff"
+            color="#888888"
           />
         </mesh>
 

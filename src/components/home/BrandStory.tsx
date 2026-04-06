@@ -34,7 +34,7 @@ export default function BrandStory() {
     <>
       <section ref={sectionRef} className="relative py-48 px-6 bg-paper-white text-charcoal flex flex-col items-center overflow-hidden">
         {/* 3D Geometry Background */}
-        <div className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply opacity-80">
+        <div className="absolute inset-0 z-0 pointer-events-none">
           <View className="w-full h-full">
             <Suspense fallback={null}>
               <FluidBrand />
