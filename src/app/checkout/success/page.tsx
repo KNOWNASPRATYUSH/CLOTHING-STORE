@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Check, ShoppingBag, ArrowRight } from 'lucide-react';
+import { Check, ShoppingBag } from 'lucide-react';
 import { useEffect } from 'react';
 import { useCart } from '@/context/CartContext';
 
